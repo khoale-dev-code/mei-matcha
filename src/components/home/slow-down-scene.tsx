@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import styles from "./slow-down-scene.module.css";
 import {
   AnimatePresence,
   motion,
@@ -148,7 +149,7 @@ export function SlowDownScene() {
       className="relative h-[260vh] bg-[var(--mie-washi)] text-[var(--mie-ink)]"
       aria-labelledby="slow-down-heading"
     >
-      <div className="sticky top-0 h-[100svh] overflow-hidden">
+      <div className={`sticky top-0 h-[100svh] overflow-hidden ${styles.stage}`}>
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-x-0 top-0 h-px bg-[var(--mie-ink)]/8" />
           <div className="absolute -left-20 top-24 h-72 w-72 rounded-full bg-[var(--mie-matcha)]/16 blur-3xl" />
@@ -156,8 +157,8 @@ export function SlowDownScene() {
           <div className="absolute bottom-[-6rem] left-1/3 h-64 w-64 rounded-full bg-[var(--mie-matcha-deep)]/6 blur-3xl" />
         </div>
 
-        <div className="relative mx-auto flex h-full max-w-[1520px] flex-col px-5 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-9">
-          <div className="flex items-center justify-between border-b border-[var(--mie-ink)]/10 pb-5">
+        <div className={`relative mx-auto flex h-full max-w-[1520px] flex-col px-5 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-9 ${styles.shell}`}>
+          <div className={`flex items-center justify-between border-b border-[var(--mie-ink)]/10 pb-5 ${styles.topBar}`}>
             <div className="flex items-center gap-4">
               <div className="grid size-11 place-items-center rounded-full border border-[var(--mie-ink)]/12 bg-white/26 text-[10px] font-bold tracking-[0.12em] text-[var(--mie-ink)]/78">
                 01
@@ -187,18 +188,18 @@ export function SlowDownScene() {
             </div>
           </div>
 
-          <div className="grid flex-1 items-center gap-12 py-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16 lg:py-10">
+          <div className={`grid flex-1 items-center gap-12 py-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16 lg:py-10 ${styles.bodyGrid}`}>
             <motion.div
-              className="mie-slide-motion min-w-0"
+              className={`mie-slide-motion min-w-0 ${styles.intro}`}
               style={{ y: headingY, opacity: headingOpacity }}
             >
-              <p className="mb-5 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--mie-moss)]/58">
+              <p className={`mb-5 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--mie-moss)]/58 ${styles.introKicker}`}>
                 Japanese tea · Tây Ninh
               </p>
 
               <h2
                 id="slow-down-heading"
-                className="max-w-[8ch] font-serif text-[clamp(3.8rem,8vw,8rem)] leading-[0.84] tracking-[-0.06em] text-[var(--mie-ink)]"
+                className={`max-w-[8ch] font-serif text-[clamp(3.8rem,8vw,8rem)] leading-[0.84] tracking-[-0.06em] text-[var(--mie-ink)] ${styles.title}`}
               >
                 <span className="block overflow-hidden">
                   <motion.span className="mie-slide-motion block" style={{ y: headingY }}>
@@ -217,7 +218,7 @@ export function SlowDownScene() {
               </h2>
 
               <motion.p
-                className="mie-slide-motion mt-8 max-w-xl text-lg leading-9 text-[var(--mie-ink)]/68 sm:mt-10"
+                className={`mie-slide-motion mt-8 max-w-xl text-lg leading-9 text-[var(--mie-ink)]/68 sm:mt-10 ${styles.description}`}
                 style={{ y: introCopyY, opacity: introCopyOpacity }}
               >
                 Một phần matcha ngon không chỉ nằm ở chất lượng trà, mà còn ở
@@ -226,7 +227,7 @@ export function SlowDownScene() {
               </motion.p>
 
               <motion.div
-                className="mie-slide-motion mt-8 flex flex-wrap items-center gap-3 sm:mt-10"
+                className={`mie-slide-motion mt-8 flex flex-wrap items-center gap-3 sm:mt-10 ${styles.actions}`}
                 style={{ y: ctaY, opacity: ctaOpacity }}
               >
                 <Link
@@ -276,13 +277,13 @@ export function SlowDownScene() {
             </motion.div>
 
             <motion.div
-              className="mie-slide-motion relative"
+              className={`mie-slide-motion relative ${styles.panelWrap}`}
               style={{ y: panelY, opacity: panelOpacity }}
             >
               <div className="absolute -inset-5 rounded-[2.25rem] bg-[radial-gradient(circle_at_top_left,rgba(200,220,122,0.14),transparent_42%)] blur-2xl" />
 
-              <div className="relative overflow-hidden rounded-[2.2rem] border border-[var(--mie-ink)]/10 bg-[var(--mie-ivory)]/78 shadow-[0_28px_90px_rgba(32,43,28,0.1)] backdrop-blur-md">
-                <div className="border-b border-[var(--mie-ink)]/8 px-6 py-5 sm:px-8 sm:py-6">
+              <div className={`relative overflow-hidden rounded-[2.2rem] border border-[var(--mie-ink)]/10 bg-[var(--mie-ivory)]/78 shadow-[0_28px_90px_rgba(32,43,28,0.1)] backdrop-blur-md ${styles.panel}`}>
+                <div className={`border-b border-[var(--mie-ink)]/8 px-6 py-5 sm:px-8 sm:py-6 ${styles.panelHeader}`}>
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-[0.26em] text-[var(--mie-moss)]/56">
@@ -300,8 +301,8 @@ export function SlowDownScene() {
                   </div>
                 </div>
 
-                <div className="grid gap-4 p-4 sm:p-5 lg:grid-cols-[11rem_1fr] lg:gap-5 lg:p-6">
-                  <div className="grid gap-3">
+                <div className={`grid gap-4 p-4 sm:p-5 lg:grid-cols-[11rem_1fr] lg:gap-5 lg:p-6 ${styles.panelBody}`}>
+                  <div className={`grid gap-3 ${styles.steps}`}>
                     {RITUAL_SLIDES.map((slide, index) => {
                       const active = index === activeStep;
 
@@ -309,7 +310,7 @@ export function SlowDownScene() {
                         <div
                           key={slide.id}
                           className={[
-                            "rounded-[1.25rem] border px-4 py-4 transition-all duration-300",
+                            styles.stepCard, "rounded-[1.25rem] border px-4 py-4 transition-all duration-300",
                             active
                               ? "border-[var(--mie-matcha-deep)]/20 bg-[var(--mie-matcha)]/18 shadow-[0_12px_34px_rgba(125,145,78,0.12)]"
                               : "border-[var(--mie-ink)]/8 bg-white/36",
@@ -331,7 +332,7 @@ export function SlowDownScene() {
                     })}
                   </div>
 
-                  <div className="relative min-h-[23rem] overflow-hidden rounded-[1.5rem] border border-[var(--mie-ink)]/8 bg-white/42 p-5 sm:min-h-[24rem] sm:p-7">
+                  <div className={`relative min-h-[23rem] overflow-hidden rounded-[1.5rem] border border-[var(--mie-ink)]/8 bg-white/42 p-5 sm:min-h-[24rem] sm:p-7 ${styles.detail}`}>
                     <div className="absolute inset-x-0 top-0 h-1 bg-[var(--mie-ink)]/5">
                       <motion.div
                         className="mie-slide-motion h-full origin-left bg-[var(--mie-matcha-deep)]"
@@ -359,7 +360,7 @@ export function SlowDownScene() {
                             ease: "easeOut",
                           },
                         }}
-                        className="mie-slide-motion flex min-h-[19rem] flex-col justify-between"
+                        className={`mie-slide-motion flex min-h-[19rem] flex-col justify-between ${styles.detailInner}`}
                       >
                         <div>
                           <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[var(--mie-moss)]/55">
@@ -401,7 +402,7 @@ export function SlowDownScene() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[var(--mie-ink)]/8 px-6 py-4 sm:px-8">
+                <div className={`flex flex-wrap items-center justify-between gap-4 border-t border-[var(--mie-ink)]/8 px-6 py-4 sm:px-8 ${styles.panelFooter}`}>
                   <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[var(--mie-moss)]/42">
                     MIE MATCHA · TÂY NINH
                   </p>
@@ -414,7 +415,7 @@ export function SlowDownScene() {
             </motion.div>
           </div>
 
-          <div className="flex items-center justify-between border-t border-[var(--mie-ink)]/10 pt-5">
+          <div className={`flex items-center justify-between border-t border-[var(--mie-ink)]/10 pt-5 ${styles.sectionFooter}`}>
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--mie-ink)]/34">
               Presentation-style scroll · clear CTA
             </p>
