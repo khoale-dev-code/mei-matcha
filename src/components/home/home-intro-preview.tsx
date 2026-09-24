@@ -1,0 +1,73 @@
+import Image from "next/image";
+import Link from "next/link";
+
+import { Reveal } from "@/components/ui/reveal";
+
+export function HomeIntroPreview() {
+  return (
+    <section className="relative overflow-hidden bg-[#f4eedf] px-5 py-24 text-[#172314] sm:px-8 sm:py-32 lg:px-12 lg:py-36">
+      <div className="pointer-events-none absolute -right-32 top-10 size-[520px] rounded-full bg-[#bfd073]/14 blur-3xl" />
+
+      <div className="mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-20">
+        <Reveal>
+          <p className="section-kicker">MIE Â· TÃ¢y Ninh</p>
+
+          <h2 className="mt-5 max-w-4xl font-serif text-[clamp(3.7rem,7vw,7.4rem)] leading-[0.88] tracking-[-0.055em]">
+            Matcha cho nhá»¯ng
+            <span className="block italic text-[#74884a]">
+              khoáº£ng cháº­m.
+            </span>
+          </h2>
+
+          <div className="mt-8 max-w-xl space-y-5 text-sm leading-7 text-[#52604d] sm:text-base sm:leading-8">
+            <p>
+              MIE chá»n trÃ  tá»« nhá»¯ng nhÃ  trÃ  Nháº­t Báº£n cÃ³ profile rÃµ rÃ ng, rá»“i Ä‘Ã¡nh tá»«ng pháº§n báº±ng chasen Ä‘á»ƒ giá»¯ texture má»‹n vÃ  vá»‹ umami Ä‘áº·c trÆ°ng.
+            </p>
+            <p>
+              Trang chá»§ giá» táº­p trung vÃ o tráº£i nghiá»‡m vÃ  Ä‘á»‹nh hÆ°á»›ng. CÃ¢u chuyá»‡n Ä‘áº§y Ä‘á»§, tea houses, Hojicha vÃ  thÃ´ng tin ghÃ© tiá»‡m Ä‘Æ°á»£c tÃ¡ch thÃ nh cÃ¡c trang riÃªng Ä‘á»ƒ báº¡n khÃ¡m phÃ¡ sÃ¢u hÆ¡n.
+            </p>
+          </div>
+
+          <div className="mt-9 flex flex-wrap items-center gap-3">
+            <Link href="/about" className="cta-primary">
+              CÃ¢u chuyá»‡n cá»§a MIE â†—
+            </Link>
+
+            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6d795f]">
+              Hand whisked Â· Japanese tea
+            </span>
+          </div>
+        </Reveal>
+
+        <Reveal className="relative" delay={0.08}>
+          <div className="relative min-h-[480px] overflow-hidden rounded-[2.2rem] sm:min-h-[620px] sm:rounded-[2.8rem]">
+            <Image
+              src="/images/mie-hero.jpg"
+              alt="KhÃ´ng gian matcha táº¡i MIE MATCHA"
+              fill
+              sizes="(max-width: 1024px) 100vw, 56vw"
+              className="object-cover"
+            />
+
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_42%,rgba(16,31,14,0.52)_100%)]" />
+
+            <div className="absolute bottom-5 left-5 right-5 grid gap-3 rounded-[1.5rem] border border-white/18 bg-[#182815]/30 p-5 text-[#fff9ed] backdrop-blur-md sm:bottom-7 sm:left-7 sm:right-7 sm:grid-cols-[1fr_auto] sm:items-end sm:p-6">
+              <div>
+                <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#d7e5ae]">
+                  The MIE ritual
+                </p>
+                <p className="mt-2 max-w-lg font-serif text-3xl leading-none tracking-[-0.035em] sm:text-4xl">
+                  Choose. Whisk. Slow.
+                </p>
+              </div>
+
+              <span className="text-[10px] uppercase tracking-[0.18em] text-white/65">
+                TÃ¢y Ninh Â· 2026
+              </span>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}

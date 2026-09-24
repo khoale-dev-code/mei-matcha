@@ -1,0 +1,98 @@
+import Image from "next/image";
+import Link from "next/link";
+
+import { teaHouses } from "@/data/tea-houses";
+import { Reveal } from "@/components/ui/reveal";
+
+const featuredHouses = teaHouses.slice(0, 3);
+
+export function HomeTeaPreview() {
+  return (
+    <section className="bg-[#10200f] px-5 py-24 text-[#f6f0e5] sm:px-8 sm:py-32 lg:px-12 lg:py-36">
+      <div className="mx-auto max-w-[1500px]">
+        <Reveal>
+          <div className="grid gap-7 border-b border-white/10 pb-10 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#b9cc79]">
+                Tea house selection
+              </p>
+
+              <h2 className="mt-4 font-serif text-[clamp(3.8rem,8vw,8rem)] leading-[0.84] tracking-[-0.06em]">
+                Selected in Japan,
+                <span className="block italic text-[#cbdc8d]">
+                  poured at MIE.
+                </span>
+              </h2>
+            </div>
+
+            <div className="lg:pb-2">
+              <p className="max-w-lg text-sm leading-7 text-[#d8dfcf]/68">
+                Trang chá»§ chá»‰ giá»›i thiá»‡u nhá»¯ng Ä‘iá»ƒm cháº¡m chÃ­nh. Táº¡i Tea Houses, báº¡n cÃ³ thá»ƒ Ä‘á»c sÃ¢u tá»«ng nhÃ  trÃ , tá»«ng profile vÃ  hÆ°Æ¡ng vá»‹ theo má»™t luá»“ng scroll dá»c rÃµ rÃ ng hÆ¡n.
+              </p>
+
+              <Link
+                href="/tea-houses"
+                className="mt-6 inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#d7e69e]"
+              >
+                Explore all tea houses
+                <span className="h-px w-10 bg-[#d7e69e]/45" />
+                â†—
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-12 lg:grid-rows-2">
+          {featuredHouses.map((house, index) => {
+            const layout =
+              index === 0
+                ? "lg:col-span-7 lg:row-span-2 lg:min-h-[720px]"
+                : "lg:col-span-5 lg:min-h-[350px]";
+
+            return (
+              <Reveal key={house.id} className={layout} delay={index * 0.05}>
+                <Link
+                  href={`/tea-houses#house-${house.id}`}
+                  className="group relative block h-full min-h-[420px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#192817]"
+                >
+                  <Image
+                    src={house.image}
+                    alt={house.imageAlt}
+                    fill
+                    sizes={index === 0 ? "(max-width: 1024px) 100vw, 58vw" : "(max-width: 1024px) 100vw, 40vw"}
+                    className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.035]"
+                  />
+
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,16,7,0.05)_25%,rgba(8,16,7,0.82)_100%)]" />
+
+                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                    <div className="flex items-center justify-between gap-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-[#c9d997]">
+                      <span>{house.region}</span>
+                      <span>0{index + 1}</span>
+                    </div>
+
+                    <div className="mt-3 flex items-end justify-between gap-5">
+                      <div>
+                        <h3 className="max-w-xl font-serif text-4xl leading-[0.92] tracking-[-0.045em] sm:text-5xl">
+                          {house.name}
+                        </h3>
+
+                        <p className="mt-3 max-w-lg text-xs leading-6 text-white/65">
+                          {house.description}
+                        </p>
+                      </div>
+
+                      <span className="grid size-11 shrink-0 place-items-center rounded-full border border-white/20 bg-white/8 text-lg transition-transform duration-300 group-hover:translate-x-1">
+                        â†—
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

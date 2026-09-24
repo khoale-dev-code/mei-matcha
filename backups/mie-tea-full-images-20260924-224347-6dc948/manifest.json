@@ -1,0 +1,20 @@
+﻿{
+    "ProjectRoot":  "D:\\freelancer\\mie-matcha",
+    "Files":  [
+                  {
+                      "Path":  "src/components/tea/matcha-product-card.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/tea/matcha-product-card.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/tea/tea-house-section.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/tea/tea-house-section.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/tea/tea-library.module.css",
+                      "Existed":  true,
+                      "Backup":  "src/components/tea/tea-library.module.css.bak"
+                  }
+              ]
+}

@@ -1,0 +1,101 @@
+﻿import Image from "next/image";
+import Link from "next/link";
+
+import { Reveal } from "@/components/ui/reveal";
+
+export function HomeFinalPreview() {
+  return (
+    <>
+      <section className="bg-[#ad7d58] px-5 py-24 text-[#fff6e8] sm:px-8 sm:py-32 lg:px-12 lg:py-36">
+        <div className="mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-20">
+          <Reveal>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffe0bc]">
+              Beyond matcha Â· ç„™ã˜èŒ¶
+            </p>
+
+            <h2 className="mt-4 max-w-3xl font-serif text-[clamp(4rem,8vw,8rem)] leading-[0.84] tracking-[-0.055em]">
+              Warm.
+              <span className="block italic text-[#f4d3af]">
+                Toasted. Quiet.
+              </span>
+            </h2>
+
+            <p className="mt-7 max-w-xl text-sm leading-7 text-[#fff4e5]/78 sm:text-base">
+              Hojicha má»Ÿ ra má»™t nhá»‹p khÃ¡c: rang áº¥m, gá»—, caramel, Ã­t Ä‘áº¯ng vÃ  ráº¥t dá»… uá»‘ng. Náº¿u matcha lÃ  sáº¯c xanh rÃµ nÃ©t, Hojicha lÃ  khoáº£ng láº¯ng má»m hÆ¡n.
+            </p>
+
+            <Link
+              href="/tea-houses#hojicha"
+              className="mt-8 inline-flex rounded-full border border-white/20 bg-white/8 px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.18em] transition hover:bg-white hover:text-[#6f492f]"
+            >
+              Discover Hojicha â†—
+            </Link>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <Link
+              href="/tea-houses#hojicha"
+              className="group relative block min-h-[500px] overflow-hidden rounded-[2.2rem] sm:min-h-[620px] sm:rounded-[2.8rem]"
+            >
+              <Image
+                src="/images/hojicha.jpg"
+                alt="Hojicha táº¡i MIE MATCHA"
+                fill
+                sizes="(max-width: 1024px) 100vw, 56vw"
+                className="object-cover transition-transform duration-[1300ms] ease-out group-hover:scale-[1.03]"
+              />
+
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_48%,rgba(62,37,22,0.48)_100%)]" />
+
+              <div className="absolute bottom-6 left-6 rounded-full border border-white/20 bg-[#5f3f2c]/30 px-4 py-2 text-[9px] uppercase tracking-[0.2em] backdrop-blur-md">
+                Toast Â· Wood Â· Caramel
+              </div>
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#edf0df] px-5 py-24 text-[#172314] sm:px-8 sm:py-32 lg:px-12 lg:py-36">
+        <div className="pointer-events-none absolute -left-28 bottom-0 size-[520px] rounded-full bg-[#a6bd62]/16 blur-3xl" />
+
+        <div className="relative mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          <Reveal>
+            <p className="section-kicker">Visit MIE</p>
+
+            <h2 className="mt-4 max-w-5xl font-serif text-[clamp(4rem,9vw,8.5rem)] leading-[0.84] tracking-[-0.06em]">
+              Your next cup,
+              <span className="block italic text-[#6f8446]">
+                in TÃ¢y Ninh.
+              </span>
+            </h2>
+          </Reveal>
+
+          <Reveal className="lg:pb-3" delay={0.06}>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#71806a]">
+              25 Nguyá»…n Tri PhÆ°Æ¡ng
+            </p>
+
+            <p className="mt-3 font-serif text-3xl tracking-[-0.035em] sm:text-4xl">
+              phÆ°á»ng Long Hoa, TÃ¢y Ninh
+            </p>
+
+            <p className="mt-5 max-w-lg text-sm leading-7 text-[#586653]">
+              ChÆ°a biáº¿t báº¯t Ä‘áº§u tá»« profile nÃ o? GhÃ© MIE, nÃ³i cho tá»¥i mÃ¬nh báº¡n thÃ­ch floral, nutty, creamy hay umami â€” pháº§n cÃ²n láº¡i Ä‘á»ƒ tá»¥i mÃ¬nh gá»£i Ã½.
+            </p>
+
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link href="/visit" className="cta-primary">
+                Visit MIE â†—
+              </Link>
+
+              <a href="tel:0966204426" className="cta-secondary">
+                0966 204 426
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </>
+  );
+}
+

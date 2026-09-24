@@ -1,0 +1,17 @@
+﻿{
+    "ProjectRoot":  "D:\\freelancer\\mie-matcha",
+    "Files":  [
+                  {
+                      "Path":  "src/app/page.tsx",
+                      "Backup":  "src/app/page.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/use-hero-sequence.ts",
+                      "Backup":  "src/components/home/use-hero-sequence.ts.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/home-responsive.module.css",
+                      "Backup":  "src/components/home/home-responsive.module.css.bak"
+                  }
+              ]
+}

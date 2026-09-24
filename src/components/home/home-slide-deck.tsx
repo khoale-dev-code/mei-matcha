@@ -1,0 +1,286 @@
+import Image from "next/image";
+import Link from "next/link";
+
+import { Reveal } from "@/components/ui/reveal";
+import { teaHouses } from "@/data/tea-houses";
+
+const featuredHouses = teaHouses.slice(0, 3);
+
+export function HomeSlideDeck() {
+  return (
+    <section className="relative isolate bg-[#f3eddc]">
+      <section className="sticky top-0 z-[1] h-[100svh] overflow-hidden bg-[#f3eddc] px-5 py-20 text-[#172314] sm:px-8 lg:px-12">
+        <div className="pointer-events-none absolute -right-40 top-10 size-[560px] rounded-full bg-[#b9ce73]/16 blur-3xl" />
+
+        <div className="relative mx-auto grid h-full max-w-[1500px] gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-16">
+          <Reveal>
+            <p className="section-kicker">
+              About MIE · 01 / 04
+            </p>
+
+            <h2 className="mt-5 max-w-3xl font-serif text-[clamp(3.5rem,7.5vw,7.7rem)] leading-[0.86] tracking-[-0.06em]">
+              Matcha cho
+              <span className="block italic text-[#74894a]">
+                những khoảng chậm.
+              </span>
+            </h2>
+
+            <p className="mt-7 max-w-xl text-sm leading-7 text-[#52604d] sm:text-base sm:leading-8">
+              MIE MATCHA bắt đầu từ niềm yêu thích matcha và
+              những buổi ngồi chậm lại một chút. Mỗi phần trà
+              được đánh thủ công bằng chasen để giữ texture
+              mịn, màu xanh và vị umami đặc trưng.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                href="/about"
+                className="cta-primary"
+              >
+                Câu chuyện MIE ↗
+              </Link>
+
+              <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#728069]">
+                Uji selected · Hand whisked
+              </span>
+            </div>
+          </Reveal>
+
+          <Reveal
+            className="relative min-h-0 self-stretch py-4 lg:py-8"
+            delay={0.06}
+          >
+            <div className="relative h-full min-h-[420px] overflow-hidden rounded-[2rem] sm:rounded-[2.6rem]">
+              <Image
+                src="/images/mie-hero.jpg"
+                alt="MIE MATCHA"
+                fill
+                sizes="(max-width: 1024px) 100vw, 56vw"
+                className="object-cover"
+              />
+
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_42%,rgba(17,31,14,0.52)_100%)]" />
+
+              <div className="absolute bottom-5 left-5 right-5 rounded-[1.4rem] border border-white/18 bg-[#172514]/28 p-5 text-[#fff8eb] backdrop-blur-md sm:bottom-7 sm:left-7 sm:right-7">
+                <p className="text-[9px] uppercase tracking-[0.24em] text-[#d7e6af]">
+                  MIE ritual
+                </p>
+
+                <p className="mt-2 font-serif text-3xl tracking-[-0.04em]">
+                  Choose. Whisk. Slow.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="sticky top-0 z-[2] h-[100svh] overflow-hidden bg-[#10200f] px-5 py-20 text-[#f5f0e6] sm:px-8 lg:px-12">
+        <div className="mx-auto flex h-full max-w-[1500px] flex-col justify-center">
+          <Reveal>
+            <div className="grid gap-7 lg:grid-cols-[1fr_0.68fr] lg:items-end">
+              <div>
+                <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#b9cc78]">
+                  Tea house selection · 02 / 04
+                </p>
+
+                <h2 className="mt-4 max-w-[1100px] font-serif text-[clamp(3.2rem,6.6vw,6.8rem)] leading-[0.94] tracking-[-0.045em]">
+                  Selected in Japan,
+                  <span className="mt-2 block italic text-[#cadc8b] sm:mt-3">
+                    poured at MIE.
+                  </span>
+                </h2>
+              </div>
+
+              <div className="lg:pb-2">
+                <p className="max-w-lg text-sm leading-7 text-[#d8dfcf]/68">
+                  Mỗi nhà trà có một profile riêng. Khám phá
+                  toàn bộ lựa chọn tại Tea Houses.
+                </p>
+
+                <Link
+                  href="/tea-houses"
+                  className="mt-5 inline-flex items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.2em] text-[#d7e69e]"
+                >
+                  Explore tea houses
+                  <span className="h-px w-9 bg-current opacity-40" />
+                  ↗
+                </Link>
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="mt-8 grid min-h-0 flex-1 gap-4 lg:grid-cols-12 lg:pb-4">
+            {featuredHouses.map(
+              (house, index) => {
+                const layout =
+                  index === 0
+                    ? "lg:col-span-6"
+                    : "lg:col-span-3";
+
+                return (
+                  <Reveal
+                    key={house.id}
+                    className={layout}
+                    delay={0.05 + index * 0.04}
+                  >
+                    <Link
+                      href={`/tea-houses#house-${house.id}`}
+                      className="group relative block h-full min-h-[220px] overflow-hidden rounded-[1.7rem] border border-white/10 bg-[#192817]"
+                    >
+                      <Image
+                        src={house.image}
+                        alt={house.imageAlt}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 34vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                      />
+
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,14,6,0.03)_25%,rgba(6,14,6,0.86)_100%)]" />
+
+                      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                        <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#c9db91]">
+                          {house.region}
+                        </p>
+
+                        <h3 className="mt-2 font-serif text-3xl leading-[0.95] tracking-[-0.04em]">
+                          {house.name}
+                        </h3>
+
+                        <div className="mt-4 flex items-center justify-between">
+                          <span className="text-[9px] uppercase tracking-[0.16em] text-white/48">
+                            {house.teas.length} profiles
+                          </span>
+
+                          <span className="grid size-9 place-items-center rounded-full border border-white/18 bg-white/8">
+                            ↗
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </Reveal>
+                );
+              },
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="sticky top-0 z-[3] h-[100svh] overflow-hidden bg-[#6f4827] px-5 py-16 text-[#FFF7ED] sm:px-8 sm:py-18 lg:px-12 lg:py-20">
+        <div className="mx-auto grid h-full max-w-[1500px] gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-20">
+          <Reveal className="relative z-10 max-w-[38rem]">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#E7C89F]">
+              Beyond matcha · 焙じ茶 · 03 / 04
+            </p>
+
+            <h2 className="mt-5 max-w-[6.8ch] font-serif text-[clamp(3.6rem,6.3vw,6.3rem)] leading-[0.88] tracking-[-0.05em] text-[#FFF7ED]">
+              <span className="block">Warm.</span>
+              <span className="block italic text-[#F1D2AA]">
+                Toasted.
+              </span>
+              <span className="block">Quiet.</span>
+            </h2>
+
+            <p className="mt-7 max-w-xl text-sm leading-7 text-[#F3E3D2]/88 sm:text-base sm:leading-8">
+              Hojicha mang đến một nhịp thưởng trà êm hơn — ấm, rang nhẹ,
+              thoảng hương gỗ và caramel. Vị trà tròn, dịu, ít đắng, phù hợp
+              cho những lúc bạn muốn một trải nghiệm mềm và thư thái hơn so với
+              matcha.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                href="/tea-houses#hojicha"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#F1D2AA]/40 bg-[#FFF7ED]/8 px-5 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#FFF7ED] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#FFF7ED] hover:text-[#6f4827]"
+              >
+                Discover Hojicha ↗
+              </Link>
+
+              <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#E9D1B8]/72">
+                Roasted · Smooth · Low bitterness
+              </span>
+            </div>
+          </Reveal>
+
+          <Reveal
+            className="relative flex min-h-0 items-center justify-center self-stretch py-2 lg:py-4"
+            delay={0.06}
+          >
+            <Link
+              href="/tea-houses#hojicha"
+              className="group relative block h-full min-h-[430px] w-full max-w-[860px] overflow-hidden rounded-[2rem] border border-[#FFF7ED]/12 shadow-[0_30px_90px_rgba(34,16,7,0.22)] sm:rounded-[2.6rem]"
+            >
+              <Image
+                src="/images/hojicha.jpg"
+                alt="Hojicha tại MIE MATCHA"
+                fill
+                sizes="(max-width: 1024px) 100vw, 56vw"
+                className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
+              />
+
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(50,29,14,0.02)_36%,rgba(50,29,14,0.56)_100%)]" />
+
+              <div className="absolute bottom-5 left-5 rounded-full border border-[#FFF7ED]/22 bg-[#4b2e18]/55 px-4 py-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-[#F6DFC3] backdrop-blur-md transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-[#5a361b]/65 sm:bottom-6 sm:left-6">
+                Toast · Wood · Caramel
+              </div>
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="sticky top-0 z-[4] h-[100svh] overflow-hidden bg-[#edf0df] px-5 py-20 text-[#172314] sm:px-8 lg:px-12">
+        <div className="pointer-events-none absolute -left-40 bottom-0 size-[600px] rounded-full bg-[#9eb45d]/16 blur-3xl" />
+
+        <div className="relative mx-auto grid h-full max-w-[1500px] gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+          <Reveal>
+            <p className="section-kicker">
+              Visit MIE · 04 / 04
+            </p>
+
+            <h2 className="mt-4 max-w-[1050px] font-serif text-[clamp(3.4rem,7vw,7rem)] leading-[0.96] tracking-[-0.045em]">
+              Your next cup,
+              <span className="mt-2 block italic text-[#6e8345] sm:mt-3">
+                in Tây Ninh.
+              </span>
+            </h2>
+          </Reveal>
+
+          <Reveal
+            className="rounded-[2rem] border border-[#263820]/10 bg-[#f7f4e9]/72 p-6 shadow-[0_25px_80px_rgba(32,48,28,0.08)] backdrop-blur sm:p-8"
+            delay={0.06}
+          >
+            <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#71806a]">
+              25 Nguyễn Tri Phương
+            </p>
+
+            <p className="mt-3 font-serif text-3xl leading-tight tracking-[-0.035em] sm:text-4xl">
+              phường Long Hoa, Tây Ninh
+            </p>
+
+            <p className="mt-5 text-sm leading-7 text-[#596653]">
+              Chưa biết bắt đầu với floral, nutty, creamy hay
+              umami? Ghé MIE và tụi mình sẽ giúp bạn chọn
+              profile phù hợp với khẩu vị.
+            </p>
+
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link
+                href="/visit"
+                className="cta-primary"
+              >
+                Visit MIE ↗
+              </Link>
+
+              <a
+                href="tel:0966204426"
+                className="cta-secondary"
+              >
+                0966 204 426
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </section>
+  );
+}

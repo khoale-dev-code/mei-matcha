@@ -1,0 +1,113 @@
+import { MatchaProductCard } from "@/components/tea/matcha-product-card";
+import type { TeaHouse } from "@/data/matcha-catalog";
+
+type TeaHouseSectionProps = {
+  house: TeaHouse;
+  index: number;
+  total: number;
+  surface: "ivory" | "forest";
+};
+
+const THEMES = {
+  ivory: {
+    section: "bg-[#f6f1e6] text-[#17351b] border-[#17351b]/10",
+    kicker: "text-[#7d9350]",
+    muted: "text-[#17351b]/76",
+    line: "border-[#17351b]/10",
+    badge: "border-[#17351b]/10 bg-white/50 text-[#17351b]/68",
+    cardTone: "dark" as const,
+  },
+  forest: {
+    section: "bg-[#17351b] text-[#fffaf0] border-white/10",
+    kicker: "text-[#d3f08b]",
+    muted: "text-white/78",
+    line: "border-white/10",
+    badge: "border-white/12 bg-white/[0.05] text-white/72",
+    cardTone: "light" as const,
+  },
+} as const;
+
+export function TeaHouseSection({
+  house,
+  index,
+  total,
+  surface,
+}: TeaHouseSectionProps) {
+  const theme = THEMES[surface];
+  const single = house.products.length === 1;
+
+  const gridClass = single
+    ? "grid-cols-1 max-w-[36rem]"
+    : house.products.length === 2
+      ? "md:grid-cols-2"
+      : "md:grid-cols-2 xl:grid-cols-2";
+
+  return (
+    <section
+      id={house.slug}
+      className={`snap-start border-t ${theme.section} ${theme.line}`}
+    >
+      <div className="mx-auto max-w-[1320px] px-5 py-16 sm:px-8 lg:min-h-screen lg:px-12 lg:py-24">
+        <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <div className="flex items-center gap-3">
+              <span className={`rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] ${theme.badge}`}>
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <span className={`text-[10px] font-semibold uppercase tracking-[0.24em] ${theme.kicker}`}>
+                {house.region}
+              </span>
+            </div>
+
+            <h2 className="mt-5 max-w-[10ch] font-serif text-[clamp(3.7rem,6vw,6.2rem)] leading-[0.9] tracking-[-0.03em]">
+              {house.name}
+            </h2>
+
+            {house.japaneseName ? (
+              <p className={`mt-3 text-2xl ${theme.muted}`}>
+                {house.japaneseName}
+              </p>
+            ) : null}
+
+            <p className={`mt-8 max-w-xl text-[1.15rem] leading-[2.25rem] ${theme.muted}`}>
+              {house.description}
+            </p>
+
+            <div className={`mt-8 flex items-center gap-3 border-t pt-4 ${theme.line}`}>
+              <span className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${theme.kicker}`}>
+                {house.products.length} {house.products.length === 1 ? "profile" : "profiles"}
+              </span>
+
+              <span className="h-px flex-1 bg-current/10" />
+
+              <span className={`text-[10px] uppercase tracking-[0.18em] ${theme.muted}`}>
+                {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+              </span>
+            </div>
+
+            <p className={`mt-4 text-[1rem] leading-8 ${theme.muted}`}>
+              {single
+                ? "Một profile đại diện được trình bày gọn hơn để tránh khoảng trống và giúp khách xem tập trung vào hương vị chính."
+                : "Mỗi card là một profile hương vị riêng — bấm vào để đọc mô tả chi tiết hơn."}
+            </p>
+          </div>
+
+          <div>
+            <div className={`grid gap-6 ${gridClass}`}>
+              {house.products.map((product, productIndex) => (
+                <MatchaProductCard
+                  key={product.slug}
+                  house={house}
+                  product={product}
+                  priority={index < 2 && productIndex < 2}
+                  tone={theme.cardTone}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,110 @@
+import { cn } from "@/lib/utils";
+
+type HeroMatchaSealProps = {
+  className?: string;
+};
+
+function MatchaBowlIcon() {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      className="size-10 sm:size-11"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M13 29h38c-1.5 14.4-8.9 22-19 22S14.5 43.4 13 29Z"
+        fill="currentColor"
+        opacity=".13"
+      />
+      <path
+        d="M13 29h38c-1.5 14.4-8.9 22-19 22S14.5 43.4 13 29Z"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M16.5 29c4.5-4.4 26.5-4.4 31 0"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M23 35c5.8 2.3 12.2 2.3 18 0"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        opacity=".7"
+      />
+      <path
+        d="M40.5 10.5 31 29"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="m42.5 9-4 2.2M45.5 12l-5 2.4M47.5 15.2l-5.8 2.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M21 18c2.7 1.2 4.2 3 4.2 5.3M28 14c2.7 1.3 4 3.2 4 5.4"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        opacity=".75"
+      />
+    </svg>
+  );
+}
+
+export function HeroMatchaSeal({
+  className,
+}: HeroMatchaSealProps) {
+  return (
+    <div
+      aria-hidden="true"
+      className={cn(
+        "pointer-events-none absolute bottom-3 right-3 z-30 sm:bottom-5 sm:right-5 lg:bottom-7 lg:right-7 xl:bottom-8 xl:right-9",
+        className,
+      )}
+    >
+      <div className="mie-hero-seal-float relative">
+        <div className="mie-hero-seal-cover absolute -inset-3 rounded-[2.4rem]" />
+
+        <div className="mie-hero-seal relative min-w-[9.5rem] overflow-hidden rounded-[1.8rem] border border-white/16 px-3.5 py-3 shadow-[0_22px_60px_rgba(0,0,0,0.28)] sm:min-w-[10.75rem] sm:px-4 sm:py-3.5 lg:min-w-[11.5rem]">
+          <div className="mie-hero-seal-shine absolute inset-0" />
+
+          <div className="relative flex items-center gap-3">
+            <div className="grid size-12 shrink-0 place-items-center rounded-[1.15rem] border border-[#e6efba]/18 bg-[#e6efba]/8 text-[#edf6c5] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] sm:size-14">
+              <MatchaBowlIcon />
+            </div>
+
+            <div className="min-w-0">
+              <p className="text-[8px] font-bold uppercase tracking-[0.24em] text-[#dce9a8]">
+                MIE MATCHA
+              </p>
+
+              <p className="mt-1 font-serif text-[1.05rem] leading-none tracking-[-0.025em] text-[#fffaf0] sm:text-[1.12rem]">
+                Whisk ritual
+              </p>
+
+              <p className="mt-1.5 text-[8px] font-medium uppercase tracking-[0.16em] text-white/55">
+                Chasen · Uji tea
+              </p>
+            </div>
+          </div>
+
+          <div className="relative mt-3 flex items-center gap-2">
+            <span className="size-1.5 rounded-full bg-[#cfe17d] shadow-[0_0_16px_rgba(207,225,125,0.72)]" />
+            <span className="h-px flex-1 bg-gradient-to-r from-[#d9e89b]/35 to-transparent" />
+            <span className="text-[7px] font-semibold uppercase tracking-[0.18em] text-white/42">
+              Tây Ninh
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

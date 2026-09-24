@@ -1,0 +1,33 @@
+﻿import Image from "next/image";
+import Link from "next/link";
+import { hojicha } from "@/data/tea-houses";
+import styles from "@/components/tea/tea-library.module.css";
+
+export function HojichaFeature() {
+  return (
+    <section id="hojicha" className={styles.roasted} aria-labelledby="hojicha-title">
+      <div className={`${styles.container} ${styles.roastedInner}`}>
+        <div className={styles.roastedPhoto}>
+          <Image src="/images/hojicha.jpg" alt="Hojicha và dụng cụ pha trà tại MIE" fill sizes="(min-width: 1384px) 600px, (min-width: 900px) calc(47.5vw - 60px), (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)" />
+        </div>
+        <div className={styles.roastedCopy}>
+          <div className={styles.roastedHeading}>
+            <h2 id="hojicha-title">{hojicha.title}</h2>
+            <span lang="ja">{hojicha.japanese}</span>
+          </div>
+          <p>{hojicha.description}</p>
+          <div className={styles.featuredTea}>
+            <h3>{hojicha.featured.name}</h3>
+            <p>{hojicha.featured.vietnamese}</p>
+          </div>
+          <details>
+            <summary lang="en">Read in English</summary>
+            <p lang="en">{hojicha.english}</p>
+            <p lang="en">{hojicha.featured.english}</p>
+          </details>
+          <Link className={styles.primary} href="/visit">Ghé MIE thưởng trà</Link>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,70 @@
+﻿{
+    "ProjectRoot":  "D:\\freelancer\\mie-matcha",
+    "Files":  [
+                  {
+                      "Path":  "src/app/page.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/app/page.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/about-mie.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/about-mie.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/hero-matcha-seal.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/hero-matcha-seal.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/hero-scroll-video.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/hero-scroll-video.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/hojicha-feature.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/hojicha-feature.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/home-final-preview.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/home-final-preview.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/home-intro-preview.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/home-intro-preview.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/home-slide-deck.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/home-slide-deck.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/home-tea-preview.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/home-tea-preview.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/slow-down-scene.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/slow-down-scene.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/tea-house-showcase.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/tea-house-showcase.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/visit-section.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/visit-section.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/ui/text-scroll-animation.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/ui/text-scroll-animation.tsx.bak"
+                  }
+              ]
+}

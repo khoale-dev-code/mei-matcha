@@ -1,0 +1,32 @@
+﻿"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useRef } from "react";
+import { useHeroSequence } from "./use-hero-sequence";
+import styles from "./home-responsive.module.css";
+
+export function HeroScrollVideo() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  useHeroSequence(sectionRef, canvasRef, progressRef);
+
+  return (
+    <section id="top" ref={sectionRef} className={styles.hero} aria-labelledby="home-title">
+      <Image src="/hero-frames/frame-0001.webp" alt="" fill preload sizes="100vw" className={styles.heroPoster} />
+      <canvas ref={canvasRef} className={styles.heroCanvas} aria-hidden="true" />
+      <div className={styles.heroShade} />
+      <div className={styles.heroCopy}>
+        <p className={styles.heroLocation}>Trà Nhật tại Tây Ninh</p>
+        <h1 id="home-title">MIE MATCHA</h1>
+        <p className={styles.heroText}>Một góc nhỏ dành cho những người yêu matcha, nơi mỗi chén trà được đánh bằng chasen và thưởng thức theo một nhịp chậm hơn.</p>
+        <div className={styles.actions}>
+          <Link className={styles.button} href="/tea-houses">Tìm vị trà của bạn</Link>
+          <Link className={styles.secondary} href="/visit">Ghé MIE</Link>
+        </div>
+      </div>
+      <div className={styles.heroProgress} aria-hidden="true"><div ref={progressRef} /></div>
+    </section>
+  );
+}

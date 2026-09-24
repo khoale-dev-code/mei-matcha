@@ -1,0 +1,19 @@
+MIE MATCHA — START HERE
+
+1) Open PowerShell in this folder.
+2) Run:
+
+   Set-ExecutionPolicy -Scope Process Bypass
+   .\scripts\setup.ps1
+   .\scripts\dev.ps1
+
+3) Open http://localhost:3000
+
+Important project context:
+- README.md
+- CLAUDE.md
+- AGENTS.md
+- docs/ui/
+- skills/project-rules.md
+
+Future project edits should be handed off as PowerShell commands.

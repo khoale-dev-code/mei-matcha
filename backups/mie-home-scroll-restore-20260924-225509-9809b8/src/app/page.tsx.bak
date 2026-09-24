@@ -1,0 +1,22 @@
+import { HeroScrollVideo } from "@/components/home/hero-scroll-video";
+import { HomeFlow } from "@/components/home/home-flow";
+import { SlowDownScene } from "@/components/home/slow-down-scene";
+import { MieTextScrollAnimation } from "@/components/ui/text-scroll-animation";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import styles from "@/components/home/home-responsive.module.css";
+
+export default function Home() {
+  return (
+    <>
+      <SiteHeader />
+      <main className={`${styles.home} overflow-x-clip`}>
+        <HeroScrollVideo />
+        <SlowDownScene />
+        <HomeFlow />
+        <MieTextScrollAnimation />
+      </main>
+      <SiteFooter />
+    </>
+  );
+}

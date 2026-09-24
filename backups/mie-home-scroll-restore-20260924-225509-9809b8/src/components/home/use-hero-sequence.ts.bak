@@ -1,0 +1,250 @@
+"use client";
+
+import type { RefObject } from "react";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+
+const FRAME_COUNT = 192;
+const DESKTOP_CACHE_LIMIT = 24;
+const MOBILE_CACHE_LIMIT = 16;
+
+const DESKTOP_QUERY =
+  "(min-width: 1024px) and (prefers-reduced-motion: no-preference)";
+const MOBILE_QUERY =
+  "(max-width: 1023px) and (prefers-reduced-motion: no-preference)";
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+type SequenceOptions = {
+  cacheLimit: number;
+  dprCap: number;
+  distanceFactor: number;
+  minDistance: number;
+  maxDistance: number;
+  preloadAhead: number;
+  preloadBehind: number;
+};
+
+export function useHeroSequence(
+  sectionRef: RefObject<HTMLElement | null>,
+  canvasRef: RefObject<HTMLCanvasElement | null>,
+  progressRef: RefObject<HTMLDivElement | null>,
+) {
+  useGSAP(
+    () => {
+      const media = gsap.matchMedia();
+
+      const setupSequence = ({
+        cacheLimit,
+        dprCap,
+        distanceFactor,
+        minDistance,
+        maxDistance,
+        preloadAhead,
+        preloadBehind,
+      }: SequenceOptions) => {
+        const section = sectionRef.current;
+        const canvas = canvasRef.current;
+        const progress = progressRef.current;
+
+        if (!section || !canvas || !progress) return;
+
+        const context = canvas.getContext("2d");
+        if (!context) return;
+
+        const frames = new Map<number, HTMLImageElement>();
+        let currentFrame = 0;
+        let destroyed = false;
+
+        const dispose = (image: HTMLImageElement) => {
+          image.onload = null;
+          image.onerror = null;
+          image.removeAttribute("src");
+        };
+
+        const draw = (image: HTMLImageElement) => {
+          if (destroyed || !image.complete || !image.naturalWidth) return;
+
+          const rect = canvas.getBoundingClientRect();
+          const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
+          const width = Math.max(1, Math.round(rect.width * dpr));
+          const height = Math.max(1, Math.round(rect.height * dpr));
+
+          if (canvas.width !== width || canvas.height !== height) {
+            canvas.width = width;
+            canvas.height = height;
+          }
+
+          const scale = Math.max(
+            width / image.naturalWidth,
+            height / image.naturalHeight,
+          );
+          const imageWidth = image.naturalWidth * scale;
+          const imageHeight = image.naturalHeight * scale;
+
+          context.clearRect(0, 0, width, height);
+          context.drawImage(
+            image,
+            (width - imageWidth) / 2,
+            (height - imageHeight) / 2,
+            imageWidth,
+            imageHeight,
+          );
+        };
+
+        const pruneCache = () => {
+          if (frames.size < cacheLimit) return;
+
+          const farthest = [...frames.keys()]
+            .filter((key) => key !== currentFrame)
+            .sort(
+              (a, b) =>
+                Math.abs(b - currentFrame) - Math.abs(a - currentFrame),
+            )[0];
+
+          if (farthest === undefined) return;
+
+          const image = frames.get(farthest);
+          if (image) dispose(image);
+          frames.delete(farthest);
+        };
+
+        const load = (index: number) => {
+          if (destroyed || index < 0 || index >= FRAME_COUNT) return;
+
+          const cached = frames.get(index);
+          if (cached) {
+            if (index === currentFrame) draw(cached);
+            return;
+          }
+
+          pruneCache();
+
+          const image = new Image();
+          image.decoding = "async";
+          frames.set(index, image);
+
+          image.onload = () => {
+            if (
+              !destroyed &&
+              frames.get(index) === image &&
+              index === currentFrame
+            ) {
+              draw(image);
+            }
+          };
+
+          image.onerror = () => {
+            if (frames.get(index) === image) {
+              frames.delete(index);
+            }
+          };
+
+          image.src = `/hero-frames/frame-${String(index + 1).padStart(
+            4,
+            "0",
+          )}.webp`;
+        };
+
+        const render = (next: number) => {
+          const direction = next >= currentFrame ? 1 : -1;
+          currentFrame = next;
+          load(next);
+
+          for (let distance = 1; distance <= preloadAhead; distance += 1) {
+            load(next + distance * direction);
+          }
+
+          for (let distance = 1; distance <= preloadBehind; distance += 1) {
+            load(next - distance * direction);
+          }
+        };
+
+        render(0);
+
+        const trigger = ScrollTrigger.create({
+          id: "mie-hero-sequence",
+          trigger: section,
+          start: "top top",
+          end: () => {
+            const distance = Math.round(window.innerHeight * distanceFactor);
+            return `+=${Math.min(maxDistance, Math.max(minDistance, distance))}`;
+          },
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const next = Math.round(self.progress * (FRAME_COUNT - 1));
+
+            if (next !== currentFrame) {
+              render(next);
+            }
+
+            progress.style.transform = `scaleX(${self.progress})`;
+          },
+        });
+
+        const resize = new ResizeObserver(() => {
+          const image = frames.get(currentFrame);
+          if (image) draw(image);
+        });
+
+        resize.observe(section);
+
+        const refreshFrame = requestAnimationFrame(() => {
+          const image = frames.get(currentFrame);
+          if (image) draw(image);
+          ScrollTrigger.refresh();
+        });
+
+        return () => {
+          destroyed = true;
+          cancelAnimationFrame(refreshFrame);
+          resize.disconnect();
+          trigger.kill();
+
+          frames.forEach(dispose);
+          frames.clear();
+
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          progress.style.removeProperty("transform");
+        };
+      };
+
+      media.add(DESKTOP_QUERY, () =>
+        setupSequence({
+          cacheLimit: DESKTOP_CACHE_LIMIT,
+          dprCap: 2,
+          distanceFactor: 2.45,
+          minDistance: 1800,
+          maxDistance: 3200,
+          preloadAhead: 6,
+          preloadBehind: 3,
+        }),
+      );
+
+      media.add(MOBILE_QUERY, () =>
+        setupSequence({
+          cacheLimit: MOBILE_CACHE_LIMIT,
+          dprCap: 1.5,
+          distanceFactor: 1.65,
+          minDistance: 1050,
+          maxDistance: 2100,
+          preloadAhead: 4,
+          preloadBehind: 2,
+        }),
+      );
+
+      media.add(REDUCED_MOTION_QUERY, () => {
+        const progress = progressRef.current;
+        progress?.style.removeProperty("transform");
+
+        return () => {
+          progress?.style.removeProperty("transform");
+        };
+      });
+
+      return () => media.revert();
+    },
+    { scope: sectionRef },
+  );
+}

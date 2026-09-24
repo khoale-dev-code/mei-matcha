@@ -1,0 +1,792 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import React, { useRef, useState } from "react";
+
+import { SlowDownScene } from "@/components/home/slow-down-scene";
+import { cn } from "@/lib/utils";
+
+type CharacterProps = {
+  char: string;
+  index: number;
+  centerIndex: number;
+  scrollYProgress: MotionValue<number>;
+  className?: string;
+};
+
+const CharacterV1 = ({
+  char,
+  index,
+  centerIndex,
+  scrollYProgress,
+  className,
+}: CharacterProps) => {
+  const isSpace = char === " ";
+  const distance = index - centerIndex;
+
+  const x = useTransform(scrollYProgress, [0.05, 0.5], [distance * 44, 0]);
+  const y = useTransform(
+    scrollYProgress,
+    [0.05, 0.5],
+    [Math.abs(distance) * 4, 0],
+  );
+  const rotateX = useTransform(
+    scrollYProgress,
+    [0.05, 0.5],
+    [distance * 6, 0],
+  );
+  const opacity = useTransform(scrollYProgress, [0.03, 0.18], [0.3, 1]);
+
+  return (
+    <motion.span
+      className={cn(
+        "inline-block will-change-transform",
+        isSpace && "w-[0.28em]",
+        className,
+      )}
+      style={{ x, y, rotateX, opacity, transformOrigin: "center" }}
+    >
+      {isSpace ? "\u00A0" : char}
+    </motion.span>
+  );
+};
+
+type ImageCharacterProps = {
+  src: string;
+  alt: string;
+  label?: string;
+  index: number;
+  centerIndex: number;
+  scrollYProgress: MotionValue<number>;
+  variant?: "soft" | "rotate";
+};
+
+const CharacterV2 = ({
+  src,
+  alt,
+  label,
+  index,
+  centerIndex,
+  scrollYProgress,
+  variant = "soft",
+}: ImageCharacterProps) => {
+  const distance = index - centerIndex;
+  const x = useTransform(scrollYProgress, [0.06, 0.5], [distance * 58, 0]);
+  const y = useTransform(
+    scrollYProgress,
+    [0.06, 0.5],
+    [Math.abs(distance) * 30, 0],
+  );
+  const scale = useTransform(scrollYProgress, [0.06, 0.5], [0.8, 1]);
+  const rotate = useTransform(
+    scrollYProgress,
+    [0.06, 0.5],
+    [variant === "rotate" ? distance * 7 : distance * 1.5, 0],
+  );
+  const opacity = useTransform(scrollYProgress, [0.03, 0.17], [0.42, 1]);
+
+  return (
+    <motion.figure
+      className="group relative aspect-[4/5] w-[clamp(7.5rem,13vw,12.5rem)] shrink-0 overflow-hidden rounded-[1.55rem] border border-white/16 bg-black/10 shadow-[0_26px_70px_rgba(0,0,0,0.22)] will-change-transform sm:rounded-[1.9rem]"
+      style={{ x, y, scale, rotate, opacity, transformOrigin: "center" }}
+    >
+      <motion.img
+        src={src}
+        alt={alt}
+        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+        draggable={false}
+      />
+
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/48 via-transparent to-transparent" />
+
+      {label ? (
+        <figcaption className="absolute inset-x-0 bottom-0 p-3 text-center text-[8px] font-semibold uppercase tracking-[0.14em] text-white/80 sm:p-4 sm:text-[9px]">
+          {label}
+        </figcaption>
+      ) : null}
+    </motion.figure>
+  );
+};
+
+const CharacterV3 = ({
+  char,
+  index,
+  centerIndex,
+  scrollYProgress,
+  className,
+}: CharacterProps) => {
+  const isSpace = char === " ";
+  const distance = index - centerIndex;
+
+  const x = useTransform(scrollYProgress, [0.06, 0.5], [distance * 58, 0]);
+  const y = useTransform(
+    scrollYProgress,
+    [0.06, 0.5],
+    [-Math.abs(distance) * 14, 0],
+  );
+  const rotate = useTransform(
+    scrollYProgress,
+    [0.06, 0.5],
+    [distance * 2.4, 0],
+  );
+  const opacity = useTransform(scrollYProgress, [0.03, 0.18], [0.28, 1]);
+
+  return (
+    <motion.span
+      className={cn(
+        "inline-block will-change-transform",
+        isSpace && "w-[0.28em]",
+        className,
+      )}
+      style={{ x, y, rotate, opacity, transformOrigin: "center" }}
+    >
+      {isSpace ? "\u00A0" : char}
+    </motion.span>
+  );
+};
+
+const teaHouseImages = [
+  {
+    src: "/images/marukyu.jpg",
+    alt: "Marukyu Koyamaen matcha",
+    label: "Marukyu",
+  },
+  {
+    src: "/images/ishimoto.jpg",
+    alt: "Ishimoto Kawaguchien matcha",
+    label: "Ishimoto",
+  },
+  {
+    src: "/images/izumi-no-shiro.jpg",
+    alt: "Shogyokuen matcha",
+    label: "Shogyokuen",
+  },
+  {
+    src: "/images/seiyousha.jpg",
+    alt: "Atami Tea Store matcha",
+    label: "Atami",
+  },
+  {
+    src: "/images/waba-hana.jpg",
+    alt: "Waba Tea matcha",
+    label: "Waba",
+  },
+] as const;
+
+const ritualImages = [
+  {
+    src: "/images/mie-hero.jpg",
+    alt: "MIE MATCHA ritual",
+    label: "MIE",
+  },
+  {
+    src: "/images/marukyu.jpg",
+    alt: "Japanese matcha",
+    label: "Matcha",
+  },
+  {
+    src: "/images/hojicha.jpg",
+    alt: "Hojicha at MIE MATCHA",
+    label: "Hojicha",
+  },
+  {
+    src: "/images/waba-hana.jpg",
+    alt: "Waba Tea",
+    label: "Waba",
+  },
+  {
+    src: "/images/seiyousha.jpg",
+    alt: "Seiyousha matcha",
+    label: "Seiyousha",
+  },
+] as const;
+
+function Bracket({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 27 78"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        fill="currentColor"
+        d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"
+      />
+    </svg>
+  );
+}
+
+
+function getRailIndex(progress: number, count: number) {
+  const raw = Math.round(progress * (count - 1));
+  return Math.max(0, Math.min(count - 1, raw));
+}
+
+function MobileScrollRail({
+  images,
+  tone,
+  scrollYProgress,
+  activeIndex,
+}: {
+  images: readonly {
+    src: string;
+    alt: string;
+    label: string;
+  }[];
+  tone: "green" | "brown";
+  scrollYProgress: MotionValue<number>;
+  activeIndex: number;
+}) {
+  const x = useTransform(scrollYProgress, [0.08, 0.92], ["0%", "-72%"]);
+  const y = useTransform(scrollYProgress, [0.04, 0.16], [18, 0]);
+  const opacity = useTransform(scrollYProgress, [0.02, 0.12], [0.45, 1]);
+
+  const border =
+    tone === "green" ? "border-white/14" : "border-[#fff7ed]/18";
+  const background =
+    tone === "green" ? "bg-[#172817]" : "bg-[#4f301b]";
+
+  return (
+    <motion.div
+      className="mie-mobile-scroll-motion relative w-full overflow-hidden"
+      style={{ y, opacity }}
+    >
+      <motion.div
+        className="mie-mobile-scroll-motion flex w-max gap-3 will-change-transform"
+        style={{ x }}
+      >
+        {images.map((image, index) => {
+          const active = index === activeIndex;
+
+          return (
+            <figure
+              key={`${tone}-${image.src}-${image.label}`}
+              className={cn(
+                "relative aspect-[4/5] w-[68vw] min-w-[12.5rem] max-w-[17.5rem] shrink-0 overflow-hidden rounded-[1.45rem] border shadow-[0_18px_46px_rgba(0,0,0,0.16)] transition-[opacity,transform,border-color] duration-300",
+                border,
+                background,
+                active
+                  ? "scale-100 opacity-100"
+                  : "scale-[0.965] opacity-65",
+              )}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(max-width: 639px) 68vw, (max-width: 1023px) 17.5rem, 18rem"
+                className="object-cover"
+                priority={index === 0}
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+
+              <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-3 p-3">
+                <span className="rounded-full border border-white/14 bg-black/16 px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.14em] text-white/82 backdrop-blur-sm">
+                  {String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
+                </span>
+                <span
+                  className={cn(
+                    "size-2 rounded-full transition-colors duration-300",
+                    active
+                      ? tone === "green"
+                        ? "bg-[#c8da88]"
+                        : "bg-[#f1d2aa]"
+                      : "bg-white/24",
+                  )}
+                />
+              </div>
+
+              <figcaption className="absolute inset-x-0 bottom-0 p-4">
+                <p className="text-[8px] font-bold uppercase tracking-[0.15em] text-white/56">
+                  Scroll chapter
+                </p>
+                <p className="mt-1 font-serif text-[1.45rem] leading-none tracking-[-0.03em] text-white">
+                  {image.label}
+                </p>
+              </figcaption>
+            </figure>
+          );
+        })}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function MobileTeaHouseSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const next = getRailIndex(latest, teaHouseImages.length);
+    setActiveIndex((current) => (current === next ? current : next));
+  });
+
+  const titleY = useTransform(scrollYProgress, [0.02, 0.15], [24, 0]);
+  const titleOpacity = useTransform(
+    scrollYProgress,
+    [0.01, 0.12],
+    [0.42, 1],
+  );
+  const progressScale = useTransform(scrollYProgress, [0.02, 0.96], [0, 1]);
+  const activeImage = teaHouseImages[activeIndex];
+
+  return (
+    <>
+      <section
+        ref={sectionRef}
+        className="relative h-[300svh] bg-[#10200f] text-[#f7f2e8] motion-reduce:hidden lg:hidden"
+      >
+        <div className="sticky top-0 flex h-[100svh] min-h-[32rem] flex-col overflow-hidden px-4 pb-3 pt-[4.75rem] sm:px-6 sm:pt-[5.25rem]">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute -left-28 top-16 size-64 rounded-full bg-[#c8da88]/8 blur-3xl" />
+            <div className="absolute -right-28 bottom-12 size-72 rounded-full bg-white/5 blur-3xl" />
+          </div>
+
+          <motion.div
+            className="mie-mobile-scroll-motion relative shrink-0"
+            style={{ y: titleY, opacity: titleOpacity }}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <Bracket className="h-8 shrink-0 text-[#c8da88]" />
+                <div className="min-w-0">
+                  <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#b8ca79]">
+                    Tea house selection
+                  </p>
+                  <h2 className="mt-1 max-w-[10ch] font-serif text-[clamp(2.4rem,12vw,3.45rem)] leading-[0.9] tracking-[-0.045em] text-[#fffaf0]">
+                    Selected from Japan
+                  </h2>
+                </div>
+              </div>
+
+              <span className="shrink-0 rounded-full border border-[#c8da88]/22 bg-[#c8da88]/10 px-2.5 py-1.5 text-[8px] font-extrabold tracking-[0.12em] text-[#dce9a8]">
+                {String(activeIndex + 1).padStart(2, "0")} / 05
+              </span>
+            </div>
+
+            <div className="mt-3 h-px overflow-hidden bg-white/10">
+              <motion.div
+                className="mie-mobile-scroll-motion h-full origin-left bg-[#c8da88]"
+                style={{ scaleX: progressScale }}
+              />
+            </div>
+          </motion.div>
+
+          <div className="relative mt-3 flex min-h-0 flex-1 items-center">
+            <MobileScrollRail
+              images={teaHouseImages}
+              tone="green"
+              scrollYProgress={scrollYProgress}
+              activeIndex={activeIndex}
+            />
+          </div>
+
+          <div className="relative mt-3 shrink-0 rounded-[1.1rem] border border-white/10 bg-white/[0.055] px-3.5 py-3 backdrop-blur-sm">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-[7px] font-bold uppercase tracking-[0.17em] text-[#b8ca79]/68">
+                  Now viewing
+                </p>
+                <p className="mt-1 truncate font-serif text-[1.2rem] leading-none tracking-[-0.025em] text-[#fffaf0]">
+                  {activeImage.label}
+                </p>
+              </div>
+
+              <div className="flex shrink-0 items-center gap-1.5">
+                {teaHouseImages.map((image, index) => (
+                  <span
+                    key={image.label}
+                    className={[
+                      "h-1.5 rounded-full transition-all duration-300",
+                      index === activeIndex
+                        ? "w-6 bg-[#c8da88]"
+                        : "w-2 bg-white/14",
+                    ].join(" ")}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative mt-2.5 grid shrink-0 grid-cols-[1fr_auto] items-center gap-3">
+            <p className="text-[8px] leading-4 text-[#e1e7da]/58">
+              Cuộn dọc để chuyển từng nhà trà như một slide trình chiếu.
+            </p>
+
+            <Link
+              href="/tea-houses"
+              className="inline-flex min-h-10 items-center justify-center rounded-full border border-[#c8da88]/30 bg-[#c8da88] px-4 text-[8px] font-extrabold uppercase tracking-[0.14em] !text-[#172314] shadow-[0_10px_24px_rgba(0,0,0,0.12)]"
+            >
+              Explore ↗
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="hidden bg-[#10200f] px-4 py-16 text-[#f7f2e8] motion-reduce:block lg:hidden">
+        <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#b8ca79]">
+          Tea house selection
+        </p>
+        <h2 className="mt-2 font-serif text-5xl leading-[0.9] tracking-[-0.04em]">
+          Selected from Japan
+        </h2>
+        <div className="mt-7 grid gap-3">
+          {teaHouseImages.map((image) => (
+            <figure
+              key={image.src}
+              className="relative aspect-[4/3] overflow-hidden rounded-[1.3rem] border border-white/12"
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 font-serif text-2xl">
+                {image.label}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+function MobileHojichaSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const next = getRailIndex(latest, ritualImages.length);
+    setActiveIndex((current) => (current === next ? current : next));
+  });
+
+  const headingY = useTransform(scrollYProgress, [0.02, 0.15], [24, 0]);
+  const headingOpacity = useTransform(
+    scrollYProgress,
+    [0.01, 0.12],
+    [0.42, 1],
+  );
+  const progressScale = useTransform(scrollYProgress, [0.02, 0.96], [0, 1]);
+  const activeImage = ritualImages[activeIndex];
+
+  return (
+    <>
+      <section
+        ref={sectionRef}
+        className="relative h-[300svh] bg-[#6f4827] text-[#fff7ed] motion-reduce:hidden lg:hidden"
+      >
+        <div className="sticky top-0 flex h-[100svh] min-h-[32rem] flex-col overflow-hidden px-4 pb-3 pt-[4.75rem] sm:px-6 sm:pt-[5.25rem]">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute -left-24 top-16 size-60 rounded-full bg-[#f1d2aa]/8 blur-3xl" />
+            <div className="absolute -right-28 bottom-8 size-72 rounded-full bg-black/10 blur-3xl" />
+          </div>
+
+          <motion.div
+            className="mie-mobile-scroll-motion relative shrink-0"
+            style={{ y: headingY, opacity: headingOpacity }}
+          >
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#f1d2aa]/80">
+                  Beyond matcha · roasted tea
+                </p>
+
+                <h2 className="mt-1 font-serif text-[clamp(2.55rem,13vw,3.75rem)] leading-[0.86] tracking-[-0.05em]">
+                  Warm.
+                  <span className="italic text-[#f1d2aa]"> Toasted.</span>
+                  <span className="block">Quiet.</span>
+                </h2>
+              </div>
+
+              <span className="shrink-0 rounded-full border border-[#f1d2aa]/22 bg-[#f1d2aa]/10 px-2.5 py-1.5 text-[8px] font-extrabold tracking-[0.12em] text-[#fff2df]">
+                {String(activeIndex + 1).padStart(2, "0")} / 05
+              </span>
+            </div>
+
+            <div className="mt-3 h-px overflow-hidden bg-white/10">
+              <motion.div
+                className="mie-mobile-scroll-motion h-full origin-left bg-[#f1d2aa]"
+                style={{ scaleX: progressScale }}
+              />
+            </div>
+          </motion.div>
+
+          <div className="relative mt-3 flex min-h-0 flex-1 items-center">
+            <MobileScrollRail
+              images={ritualImages}
+              tone="brown"
+              scrollYProgress={scrollYProgress}
+              activeIndex={activeIndex}
+            />
+          </div>
+
+          <div className="relative mt-3 shrink-0 rounded-[1.1rem] border border-[#fff7ed]/14 bg-[#4f301b]/34 px-3.5 py-3 backdrop-blur-sm">
+            <p className="text-[7px] font-bold uppercase tracking-[0.17em] text-[#f1d2aa]/66">
+              Roasted ritual · {activeImage.label}
+            </p>
+            <p className="mt-1.5 text-[0.82rem] leading-5 text-[#f8e8d8]/84">
+              Hojicha ấm, rang nhẹ, thoảng hương gỗ và caramel — êm hơn, ít
+              đắng hơn và hợp với những khoảng nghỉ chậm trong ngày.
+            </p>
+          </div>
+
+          <div className="relative mt-2.5 grid shrink-0 grid-cols-2 gap-2.5">
+            <Link
+              href="/tea-houses#hojicha"
+              className="group inline-flex min-h-11 items-center justify-center rounded-full border border-[#fff4e2] bg-[#fff4e2] px-3 text-center text-[8px] font-extrabold uppercase tracking-[0.13em] !text-[#5b371a] shadow-[0_10px_24px_rgba(35,18,9,0.14)]"
+            >
+              <span className="!text-[#5b371a]">Discover Hojicha ↗</span>
+            </Link>
+
+            <Link
+              href="/visit"
+              className="group inline-flex min-h-11 items-center justify-center rounded-full border border-[#fff4e2]/42 bg-[#4f301b]/48 px-3 text-center text-[8px] font-extrabold uppercase tracking-[0.13em] !text-[#fff7ed] backdrop-blur-sm"
+            >
+              <span className="!text-[#fff7ed]">Visit MIE ↗</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="hidden bg-[#6f4827] px-4 py-16 text-[#fff7ed] motion-reduce:block lg:hidden">
+        <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#f1d2aa]/80">
+          Beyond matcha · roasted tea
+        </p>
+        <h2 className="mt-2 font-serif text-5xl leading-[0.9] tracking-[-0.04em]">
+          Warm. <span className="italic text-[#f1d2aa]">Toasted.</span> Quiet.
+        </h2>
+        <div className="mt-7 grid gap-3">
+          {ritualImages.map((image) => (
+            <figure
+              key={image.src}
+              className="relative aspect-[4/3] overflow-hidden rounded-[1.3rem] border border-[#fff7ed]/16"
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 font-serif text-2xl">
+                {image.label}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+export function MieTextScrollAnimation() {
+  const targetRef2 = useRef<HTMLDivElement | null>(null);
+  const targetRef3 = useRef<HTMLDivElement | null>(null);
+
+  const { scrollYProgress: scrollYProgress2 } = useScroll({
+    target: targetRef2,
+    offset: ["start start", "end end"],
+  });
+
+  const { scrollYProgress: scrollYProgress3 } = useScroll({
+    target: targetRef3,
+    offset: ["start start", "end end"],
+  });
+
+  const closingText = "warm toasted quiet";
+  const closingCharacters = closingText.split("");
+  const closingCenter = Math.floor(closingCharacters.length / 2);
+  const teaCenter = Math.floor(teaHouseImages.length / 2);
+  const ritualCenter = Math.floor(ritualImages.length / 2);
+
+  const teaTitleOpacity = useTransform(
+    scrollYProgress2,
+    [0.02, 0.14],
+    [0.55, 1],
+  );
+  const teaTitleY = useTransform(scrollYProgress2, [0.02, 0.16], [16, 0]);
+  const teaCopyOpacity = useTransform(
+    scrollYProgress2,
+    [0.32, 0.52],
+    [0.45, 1],
+  );
+  const teaCopyY = useTransform(scrollYProgress2, [0.32, 0.52], [12, 0]);
+  const closingCopyOpacity = useTransform(
+    scrollYProgress3,
+    [0.34, 0.55],
+    [0.45, 1],
+  );
+  const closingCopyY = useTransform(scrollYProgress3, [0.34, 0.55], [14, 0]);
+
+  return (
+    <div className="w-full bg-[#f3eddc]">
+      <SlowDownScene />
+
+      <MobileTeaHouseSection />
+
+      <section
+        ref={targetRef2}
+        className="relative hidden h-[185vh] bg-[#10200f] lg:block"
+      >
+        <div className="sticky top-0 flex h-[100svh] flex-col items-center justify-center gap-8 overflow-hidden px-10 text-[#f7f2e8]">
+          <motion.div
+            className="flex max-w-4xl items-center justify-center gap-3 text-center"
+            style={{ opacity: teaTitleOpacity, y: teaTitleY }}
+          >
+            <Bracket className="h-12 shrink-0 text-[#c8da88]" />
+            <div>
+              <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#b8ca79]">
+                Tea house selection
+              </p>
+              <h2 className="mt-2 font-serif text-[clamp(2.8rem,5vw,5.3rem)] leading-[0.92] tracking-[-0.045em] text-[#fffaf0]">
+                Selected from Japan
+              </h2>
+            </div>
+            <Bracket className="h-12 shrink-0 scale-x-[-1] text-[#c8da88]" />
+          </motion.div>
+
+          <div
+            className="flex w-full max-w-[1450px] items-center justify-center gap-5"
+            style={{ perspective: "800px" }}
+          >
+            {teaHouseImages.map((image, index) => (
+              <CharacterV2
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                label={image.label}
+                index={index}
+                centerIndex={teaCenter}
+                scrollYProgress={scrollYProgress2}
+              />
+            ))}
+          </div>
+
+          <motion.div
+            className="text-center"
+            style={{ opacity: teaCopyOpacity, y: teaCopyY }}
+          >
+            <p className="mx-auto max-w-2xl text-sm leading-7 text-[#e1e7da]/78">
+              Marukyu Koyamaen, Ishimoto, Shogyokuen, Atami và Waba — mỗi nhà
+              trà mang một profile riêng để bạn khám phá.
+            </p>
+
+            <Link
+              href="/tea-houses"
+              className="mt-5 inline-flex min-h-12 items-center justify-center rounded-full border border-[#c8da88]/36 bg-[#c8da88]/10 px-6 text-[9px] font-bold uppercase tracking-[0.2em] text-[#e7f0bd] transition hover:bg-[#c8da88] hover:text-[#172314]"
+            >
+              Explore Tea Houses ↗
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      <MobileHojichaSection />
+
+      <section
+        ref={targetRef3}
+        className="relative hidden h-[185vh] bg-[#6f4827] lg:block"
+      >
+        <div className="sticky top-0 flex h-[100svh] flex-col items-center justify-center gap-7 overflow-hidden px-10 text-[#fff7ed]">
+          <div
+            className="max-w-[1500px] text-center font-serif text-[clamp(3.3rem,8.2vw,7.8rem)] leading-[0.9] tracking-[-0.052em] text-[#fff7ed]"
+            style={{ perspective: "700px" }}
+          >
+            {closingCharacters.map((char, index) => (
+              <CharacterV3
+                key={`${char}-${index}`}
+                char={char}
+                index={index}
+                centerIndex={closingCenter}
+                scrollYProgress={scrollYProgress3}
+                className={
+                  index >= closingText.indexOf("toasted") &&
+                  index < closingText.indexOf("quiet")
+                    ? "italic text-[#f1d2aa]"
+                    : undefined
+                }
+              />
+            ))}
+          </div>
+
+          <div
+            className="flex w-full max-w-[1400px] items-center justify-center gap-5"
+            style={{ perspective: "800px" }}
+          >
+            {ritualImages.map((image, index) => (
+              <CharacterV2
+                key={`${image.src}-${index}`}
+                src={image.src}
+                alt={image.alt}
+                label={image.label}
+                index={index}
+                centerIndex={ritualCenter}
+                scrollYProgress={scrollYProgress3}
+                variant="rotate"
+              />
+            ))}
+          </div>
+
+          <motion.div
+            className="max-w-2xl text-center"
+            style={{ opacity: closingCopyOpacity, y: closingCopyY }}
+          >
+            <p className="text-sm leading-7 text-[#f8e8d8]/90">
+              Hojicha mang đến một nhịp thưởng trà êm hơn — ấm, rang nhẹ,
+              thoảng hương gỗ và caramel. Vị trà tròn, dịu và ít đắng, phù hợp
+              cho những khoảng nghỉ mềm hơn trong ngày.
+            </p>
+
+            <div className="mt-5 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/tea-houses#hojicha"
+                className="group inline-flex min-h-12 items-center justify-center rounded-full border border-[#fff4e2] bg-[#fff4e2] px-6 text-center text-[10px] font-extrabold uppercase tracking-[0.17em] !text-[#5b371a] shadow-[0_12px_30px_rgba(42,22,10,0.14)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#fff8ef] hover:shadow-[0_16px_36px_rgba(42,22,10,0.19)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fff7ed]"
+              >
+                <span className="!text-[#5b371a]">Discover Hojicha ↗</span>
+              </Link>
+
+              <Link
+                href="/visit"
+                className="group inline-flex min-h-12 items-center justify-center rounded-full border border-[#fff4e2]/45 bg-[#4f301b]/38 px-6 text-center text-[10px] font-extrabold uppercase tracking-[0.17em] !text-[#fff7ed] backdrop-blur-sm transition-[transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-[#fff7ed]/68 hover:bg-[#4f301b]/58 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fff7ed]"
+              >
+                <span className="!text-[#fff7ed]">Visit MIE ↗</span>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+const Skiper31 = MieTextScrollAnimation;
+
+export {
+  CharacterV1,
+  CharacterV2,
+  CharacterV3,
+  Skiper31,
+};

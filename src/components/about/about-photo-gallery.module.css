@@ -1,0 +1,233 @@
+.gallery {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.viewport {
+  position: relative;
+  flex: 1 0 auto;
+  min-height: 250px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid rgb(54 79 49 / 10%);
+  border-radius: 18px;
+  background: #dfe4d1;
+  box-shadow: 0 16px 42px rgb(38 61 43 / 8%);
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  cursor: grab;
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.015);
+  transition:
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 950ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.slide[data-active="true"] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: auto minmax(56px, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  min-height: 52px;
+  padding: 2px 2px 0;
+}
+
+.count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  min-width: 66px;
+  color: #253d2b;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 1.08rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.count > span {
+  color: #74806d;
+  font-size: 0.78em;
+}
+
+.progressTrack {
+  position: relative;
+  display: block;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(37 61 43 / 11%);
+}
+
+.progressFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: inherit;
+  background: #6f8653;
+}
+
+.progressFill[data-playing="true"] {
+  animation: aboutGalleryProgress 4200ms linear forwards;
+}
+
+.arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.arrows button {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid #c7d0ba;
+  border-radius: 999px;
+  color: #29402c;
+  background: rgb(249 250 239 / 86%);
+  box-shadow: 0 8px 24px rgb(37 61 43 / 6%);
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.caption {
+  min-height: 5.9rem;
+  padding-top: 2px;
+}
+
+.title {
+  margin: 0;
+  color: #253d2b;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: clamp(1.65rem, 2.25vw, 2rem);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 44ch;
+  margin: 9px 0 0;
+  color: #4d5e46;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.arrows button:focus-visible,
+.viewport:focus-visible {
+  outline: 2px solid #365b38;
+  outline-offset: 3px;
+}
+
+@keyframes aboutGalleryProgress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .viewport {
+    min-height: 220px;
+    border-radius: 16px;
+  }
+
+  .controls {
+    gap: 10px;
+  }
+
+  .count {
+    min-width: 58px;
+    font-size: 1rem;
+  }
+
+  .arrows {
+    gap: 6px;
+  }
+
+  .arrows button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .caption {
+    min-height: 0;
+  }
+
+  .description {
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+}
+
+@media (min-width: 900px) {
+  .viewport {
+    min-height: 280px;
+  }
+}
+
+@media (min-width: 1024px) and (min-height: 760px) {
+  :global([data-about-mode="deck"]) .viewport {
+    flex: 1 1 260px;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  :global([data-about-mode="deck"]) .caption {
+    min-height: 5.9rem;
+  }
+}
+
+@media (hover: hover) {
+  .arrows button:hover {
+    border-color: #9eaf8b;
+    color: #17351b;
+    background: #eef2df;
+    transform: translateY(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .arrows button {
+    transition: none;
+  }
+
+  .progressFill[data-playing="true"] {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

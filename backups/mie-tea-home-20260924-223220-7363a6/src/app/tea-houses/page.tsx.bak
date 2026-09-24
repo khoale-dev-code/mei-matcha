@@ -1,0 +1,150 @@
+﻿import { HojichaFeature } from "@/components/home/hojicha-feature";
+import { SiteHeader } from "@/components/layout/site-header";
+import { MatchaGuideFinale } from "@/components/tea/matcha-guide-finale";
+import { TeaHouseSection } from "@/components/tea/tea-house-section";
+import { teaHouses } from "@/data/matcha-catalog";
+
+export const metadata = {
+  title: "Tea Houses · Matcha & Hojicha | MIE MATCHA",
+  description:
+    "Khám phá các nhà trà Nhật Bản, từng profile matcha và Hojicha Type A của Marukyu Koyamaen tại MIE MATCHA.",
+};
+
+const SURFACES = ["ivory", "forest"] as const;
+
+export default function TeaHousesPage() {
+  const productCount = teaHouses.reduce(
+    (total, house) => total + house.products.length,
+    0,
+  );
+
+  return (
+    <>
+      <SiteHeader />
+
+      <main className="snap-y snap-proximity overflow-x-clip bg-[#f6f1e6] text-[#17351b]">
+        <section className="snap-start border-b border-[#17351b]/10 bg-[#f6f1e6]">
+          <div className="mx-auto flex min-h-screen max-w-[1320px] flex-col justify-center px-5 pb-16 pt-28 sm:px-8 lg:px-12 lg:pb-20 lg:pt-36">
+            <div className="grid items-end gap-10 lg:grid-cols-[1.06fr_0.94fr]">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#7d9350]">
+                  MIE MATCHA · TEA HOUSES
+                </p>
+
+                <h1 className="mt-5 max-w-[8.4ch] font-serif text-[clamp(3.5rem,9vw,8.8rem)] leading-[0.92] tracking-[-0.04em]">
+                  Find the matcha
+                  <em className="mt-2 block font-normal italic text-[#8aa259]">
+                    you can read.
+                  </em>
+                </h1>
+
+                <p className="mt-8 max-w-2xl text-[1.1rem] leading-[2.15rem] text-[#17351b]/76">
+                  Khám phá những nhà trà Nhật Bản được MIE tuyển chọn, từ các
+                  profile matcha đến Hojicha rang ấm. Đọc về hương thơm, độ đậm
+                  và hậu vị để tìm một chén trà hợp với bạn.
+                </p>
+              </div>
+
+              <div className="space-y-6 lg:pb-2">
+                <div className="grid grid-cols-3 overflow-hidden rounded-[1.6rem] border border-[#17351b]/10 bg-white/55 shadow-[0_18px_56px_rgba(23,53,27,0.08)]">
+                  <div className="p-5 sm:p-6">
+                    <p className="font-serif text-4xl">{teaHouses.length}</p>
+                    <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-[#17351b]/48">
+                      Tea houses
+                    </p>
+                  </div>
+
+                  <div className="border-x border-[#17351b]/10 p-5 sm:p-6">
+                    <p className="font-serif text-4xl">{productCount}</p>
+                    <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-[#17351b]/48">
+                      Matcha profiles
+                    </p>
+                  </div>
+
+                  <div className="p-5 sm:p-6">
+                    <p className="font-serif text-4xl">1</p>
+                    <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-[#17351b]/48">
+                      Hojicha profile
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-[1.6rem] border border-[#17351b]/10 bg-[#17351b] p-6 text-[#fffaf0] shadow-[0_18px_56px_rgba(10,23,11,0.18)]">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#d3f08b]">
+                    Bắt đầu từ vị bạn thích
+                  </p>
+
+                  <p className="mt-3 text-[1rem] leading-8 text-white/84">
+                    Bạn thích hương hoa nhẹ, vị umami dày hay hương rang gợi gỗ
+                    và caramel? Chọn một nhà trà bên dưới, hoặc ghé phần Hojicha
+                    để khám phá một vị trà dịu hơn.
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {["Floral", "Umami", "Roasted"].map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-white/12 bg-white/[0.06] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/84"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <nav
+              aria-label="Khám phá nhà trà và Hojicha"
+              className="mt-10 flex flex-wrap gap-2"
+            >
+              {teaHouses.map((house, index) => (
+                <a
+                  key={house.slug}
+                  href={`#${house.slug}`}
+                  className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-[#17351b]/10 bg-white/50 px-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#17351b]/72 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#8aa259]/35 hover:bg-white hover:text-[#17351b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8aa259]"
+                >
+                  <span className="text-[#7d9350]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  {house.name}
+                </a>
+              ))}
+              <a
+                href="#hojicha"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#6f4827]/30 bg-[#eadccc] px-4 text-[10px] font-semibold uppercase tracking-[0.16em] transition-colors hover:bg-[#e0ccb4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4827]"
+              >
+                <span className="text-[#6f4827]" aria-hidden="true">↘</span>
+                Hojicha
+              </a>
+            </nav>
+
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-[#17351b]/10 pt-4">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#17351b]/48">
+                Cuộn để khám phá từng nhà trà
+              </span>
+
+              <span className="text-[10px] uppercase tracking-[0.18em] text-[#17351b]/48">
+                MIE MATCHA · TÂY NINH
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {teaHouses.map((house, index) => (
+          <TeaHouseSection
+            key={house.slug}
+            house={house}
+            index={index}
+            total={teaHouses.length}
+            surface={SURFACES[index % SURFACES.length]}
+          />
+        ))}
+
+        <HojichaFeature />
+
+        <MatchaGuideFinale />
+      </main>
+    </>
+  );
+}

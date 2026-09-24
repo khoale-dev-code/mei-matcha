@@ -1,0 +1,85 @@
+﻿{
+    "ProjectRoot":  "D:\\freelancer\\mie-matcha",
+    "Files":  [
+                  {
+                      "Path":  "src/app/page.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/app/page.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/app/tea-houses/page.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/app/tea-houses/page.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/hero-scroll-video.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/hero-scroll-video.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/hojicha-feature.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/home/hojicha-feature.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/home-flow.tsx",
+                      "Existed":  false,
+                      "Backup":  "src/components/home/home-flow.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/home-responsive.module.css",
+                      "Existed":  false,
+                      "Backup":  "src/components/home/home-responsive.module.css.bak"
+                  },
+                  {
+                      "Path":  "src/components/home/use-hero-sequence.ts",
+                      "Existed":  false,
+                      "Backup":  "src/components/home/use-hero-sequence.ts.bak"
+                  },
+                  {
+                      "Path":  "src/components/layout/site-footer.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/layout/site-footer.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/tea/matcha-guide-finale.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/tea/matcha-guide-finale.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/tea/matcha-product-card.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/tea/matcha-product-card.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/tea/tea-house-section.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/tea/tea-house-section.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/components/tea/tea-library.module.css",
+                      "Existed":  false,
+                      "Backup":  "src/components/tea/tea-library.module.css.bak"
+                  },
+                  {
+                      "Path":  "src/components/ui/text-scroll-animation.tsx",
+                      "Existed":  true,
+                      "Backup":  "src/components/ui/text-scroll-animation.tsx.bak"
+                  },
+                  {
+                      "Path":  "src/data/home-content.ts",
+                      "Existed":  false,
+                      "Backup":  "src/data/home-content.ts.bak"
+                  },
+                  {
+                      "Path":  "src/data/tea-houses.ts",
+                      "Existed":  true,
+                      "Backup":  "src/data/tea-houses.ts.bak"
+                  },
+                  {
+                      "Path":  "docs/ui/07-tea-houses-home-responsive.md",
+                      "Existed":  false,
+                      "Backup":  "docs/ui/07-tea-houses-home-responsive.md.bak"
+                  }
+              ]
+}

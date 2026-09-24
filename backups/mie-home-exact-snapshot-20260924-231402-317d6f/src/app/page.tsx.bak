@@ -1,0 +1,31 @@
+import { HeroScrollVideo } from "@/components/home/hero-scroll-video";
+import { HomeFlow } from "@/components/home/home-flow";
+import { SlowDownScene } from "@/components/home/slow-down-scene";
+import { VisitMieSection } from "@/components/home/visit-section";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import { MieTextScrollAnimation } from "@/components/ui/text-scroll-animation";
+import styles from "@/components/home/home-responsive.module.css";
+
+export default function Home() {
+  return (
+    <>
+      <SiteHeader />
+
+      <main className={`${styles.home} overflow-x-clip`}>
+        <HeroScrollVideo />
+        <SlowDownScene />
+
+        {/* Mobile / tablet fallback for Tea Houses + Hojicha. */}
+        <HomeFlow />
+
+        {/* Desktop presentation-scroll scenes. */}
+        <MieTextScrollAnimation />
+
+        <VisitMieSection />
+      </main>
+
+      <SiteFooter />
+    </>
+  );
+}

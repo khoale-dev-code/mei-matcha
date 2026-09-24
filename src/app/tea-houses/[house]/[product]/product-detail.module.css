@@ -1,0 +1,49 @@
+.page {
+  --mie-forest: #17351b;
+  --mie-ivory: #f6f1e6;
+  --mie-matcha: #d3f08b;
+  --mie-moss: #71854b;
+}
+
+.displayVi {
+  font-family:
+    "Segoe UI",
+    "Noto Sans",
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-style: normal;
+  font-weight: 650;
+  font-kerning: normal;
+  font-variant-ligatures: none;
+  font-feature-settings: "kern" 1;
+  letter-spacing: -0.035em;
+  word-spacing: 0;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: balance;
+}
+
+.displayVi em {
+  font-family:
+    "Segoe UI",
+    "Noto Sans",
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  word-spacing: 0;
+}
+
+@media (max-width: 767px) {
+  .displayVi {
+    letter-spacing: -0.02em;
+  }
+
+  .displayVi em {
+    letter-spacing: -0.015em;
+  }
+}

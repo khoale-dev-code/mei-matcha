@@ -1,0 +1,178 @@
+/* Mobile/tablet/short landscape/reduced motion: natural document flow.
+   Tall desktops with a mouse: retain the existing scroll presentation. */
+.home { --home-ink: #233b2b; --home-paper: #f7f8f1; --home-leaf: #e0e8d2; }
+.container { width: min(100% - 40px, 1240px); margin-inline: auto; }
+.hero { position: relative; isolation: isolate; min-height: 100svh; background: #243b2a; color: #fff; overflow: clip; }
+.heroPoster { object-fit: cover; object-position: center; }
+.heroCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.heroShade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(13,27,16,.22), rgba(13,27,16,.55) 45%, rgba(13,27,16,.9)); }
+.heroCopy { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end; min-height: 100svh; width: min(100% - 40px, 1320px); margin-inline: auto; padding-block: 144px max(40px, env(safe-area-inset-bottom)); }
+.heroLocation { margin: 0 0 20px; font-size: 1rem; line-height: 1.6; color: #e2eacb; }
+.hero h1 { max-width: 10ch; margin: 0; font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif; font-size: clamp(3rem, 13vw, 8.5rem); font-weight: 400; line-height: .98; letter-spacing: -.05em; }
+.heroText { max-width: 44ch; margin: 26px 0 0; font-size: clamp(1.0625rem, 1.8vw, 1.25rem); line-height: 1.8; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.button,
+.secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 20px; border: 1px solid transparent; border-radius: 999px; font-size: 1rem; font-weight: 600; line-height: 1.4; text-align: center; }
+.button { background: #dfe9cb; color: #233b2b; }
+.secondary { border-color: currentColor; }
+.hero a:focus-visible,
+.section a:focus-visible,
+.ritual a:focus-visible,
+.rail:focus-visible { outline: 3px solid #97b66d; outline-offset: 5px; }
+.heroProgress { display: none; position: absolute; inset-inline: 0; bottom: 0; height: 3px; background: #ffffff30; }
+.heroProgress > div { height: 100%; transform: scaleX(0); transform-origin: left; background: #dfe9cb; }
+.ritual { padding-block: clamp(48px, 7vw, 96px); background: #f7f8f1; color: #233b2b; }
+.ritualIntro { max-width: 56ch; }
+.ritual h2,
+.section h2 { margin: 0; font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif; font-size: clamp(2.25rem, 5vw, 4rem); font-weight: 400; letter-spacing: -.035em; line-height: 1.15; text-wrap: balance; }
+.ritualIntro p,
+.copy { max-width: 58ch; margin: 20px 0 0; font-size: 1.0625rem; line-height: 1.8; }
+.ritualIntro p { color: #52634d; }
+.steps { display: grid; gap: 28px; list-style: none; padding: 0; margin: 36px 0 0; counter-reset: ritual; }
+.steps li { position: relative; padding-left: 48px; counter-increment: ritual; }
+.steps li::before { content: counter(ritual); position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid #bccba8; border-radius: 50%; font-size: .875rem; }
+.steps h3 { margin: 0; font-size: 1.2rem; line-height: 1.5; font-weight: 600; }
+.steps p { max-width: 46ch; margin: 8px 0 0; font-size: 1.0625rem; line-height: 1.8; color: #52634d; }
+.ritual .button { background: #233b2b; color: #f7f8f1; }
+.section { padding-block: 52px; background: #233b2b; color: #f7f8f1; }
+.rail { display: flex; gap: 16px; margin: 28px 0 0; padding: 6px 4px 16px; overflow-x: auto; scroll-snap-type: x proximity; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #97b66d transparent; }
+.rail a { flex: 0 0 min(76vw, 330px); min-width: 0; scroll-snap-align: start; }
+.rail figure { margin: 0; }
+.railPhoto { position: relative; aspect-ratio: 4/5; background: #40543a; border-radius: 12px; overflow: hidden; }
+.railPhoto img { object-fit: cover; }
+.rail figcaption { padding-top: 14px; font-size: 1.0625rem; line-height: 1.5; }
+.swipeHint { margin: 12px 0 0; font-size: .875rem; color: #d0ddbd; }
+.hojicha { background: #eee7dc; color: #513820; }
+.hojichaInner { display: grid; gap: 28px; align-items: center; }
+.hojichaPhoto { position: relative; aspect-ratio: 5/4; background: #d1bca4; border-radius: 14px; overflow: hidden; }
+.hojichaPhoto img { object-fit: cover; }
+.hojicha .button { background: #68482c; color: #fff; }
+.desktopScenes { display: none; }
+@media (min-width: 640px) {
+  .container, .heroCopy { width: min(100% - 64px, 1240px); }
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .steps li { padding: 48px 0 0; }
+  .hojichaInner { grid-template-columns: 1fr 1fr; gap: 36px; }
+}
+@media (min-width: 1024px) and (min-height: 900px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero { height: 100svh; }
+  .heroCopy { height: 100%; padding-bottom: 80px; }
+  .heroProgress { display: block; }
+  .flowScenes { display: none; }
+  .desktopScenes { display: block; }
+}
+
+
+/* MIE HOME SCROLL RESTORE START
+   Hero scroll-scrub works on desktop + mobile.
+   Desktop >= 1024px uses the presentation Tea House / Hojicha scenes.
+   Mobile/tablet keep their natural flow after the scroll-driven ritual. */
+@media (prefers-reduced-motion: no-preference) {
+  .heroProgress {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .flowScenes {
+    display: none;
+  }
+
+  .desktopScenes {
+    display: block;
+  }
+}
+
+@media (max-width: 1023px) {
+  .flowScenes {
+    display: block;
+  }
+
+  .desktopScenes {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroProgress {
+    display: none;
+  }
+
+  .flowScenes {
+    display: block;
+  }
+
+  .desktopScenes {
+    display: none;
+  }
+}
+/* MIE HOME SCROLL RESTORE END */
+
+
+/* MIE OLD HOME SCROLL RESTORE START
+   Hero scrub -> Slow Down -> Tea Houses -> Hojicha -> Visit. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .heroProgress {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .hero {
+    height: 100svh;
+  }
+
+  .heroCopy {
+    height: 100%;
+    padding-bottom: 80px;
+  }
+
+  .flowScenes {
+    display: none;
+  }
+
+  .desktopScenes {
+    display: block;
+  }
+}
+
+@media (max-width: 1023px) {
+  .flowScenes {
+    display: block;
+  }
+
+  .desktopScenes {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroProgress {
+    display: none;
+  }
+
+  .flowScenes {
+    display: block;
+  }
+
+  .desktopScenes {
+    display: none;
+  }
+}
+
+.heroPoster {
+  z-index: 0;
+}
+
+.heroCanvas {
+  z-index: 1;
+}
+
+.heroShade,
+.heroCopy,
+.heroProgress {
+  z-index: 2;
+}
+/* MIE OLD HOME SCROLL RESTORE END */
+

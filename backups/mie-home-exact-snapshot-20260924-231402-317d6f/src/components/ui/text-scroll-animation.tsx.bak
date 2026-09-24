@@ -1,0 +1,359 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import React, { useRef } from "react";
+
+import { teaHouseImages, ritualImages } from "@/data/home-content";
+import styles from "@/components/home/home-responsive.module.css";
+import { cn } from "@/lib/utils";
+
+type CharacterProps = {
+  char: string;
+  index: number;
+  centerIndex: number;
+  scrollYProgress: MotionValue<number>;
+  className?: string;
+};
+
+const CharacterV1 = ({
+  char,
+  index,
+  centerIndex,
+  scrollYProgress,
+  className,
+}: CharacterProps) => {
+  const isSpace = char === " ";
+  const distance = index - centerIndex;
+
+  const x = useTransform(scrollYProgress, [0.05, 0.5], [distance * 44, 0]);
+  const y = useTransform(
+    scrollYProgress,
+    [0.05, 0.5],
+    [Math.abs(distance) * 4, 0],
+  );
+  const rotateX = useTransform(
+    scrollYProgress,
+    [0.05, 0.5],
+    [distance * 6, 0],
+  );
+  const opacity = useTransform(scrollYProgress, [0.03, 0.18], [0.3, 1]);
+
+  return (
+    <motion.span
+      className={cn(
+        "inline-block will-change-transform",
+        isSpace && "w-[0.28em]",
+        className,
+      )}
+      style={{ x, y, rotateX, opacity, transformOrigin: "center" }}
+    >
+      {isSpace ? "\u00A0" : char}
+    </motion.span>
+  );
+};
+
+type ImageCharacterProps = {
+  src: string;
+  alt: string;
+  label?: string;
+  index: number;
+  centerIndex: number;
+  scrollYProgress: MotionValue<number>;
+  variant?: "soft" | "rotate";
+};
+
+const CharacterV2 = ({
+  src,
+  alt,
+  label,
+  index,
+  centerIndex,
+  scrollYProgress,
+  variant = "soft",
+}: ImageCharacterProps) => {
+  const distance = index - centerIndex;
+  const x = useTransform(scrollYProgress, [0.06, 0.5], [distance * 58, 0]);
+  const y = useTransform(
+    scrollYProgress,
+    [0.06, 0.5],
+    [Math.abs(distance) * 30, 0],
+  );
+  const scale = useTransform(scrollYProgress, [0.06, 0.5], [0.8, 1]);
+  const rotate = useTransform(
+    scrollYProgress,
+    [0.06, 0.5],
+    [variant === "rotate" ? distance * 7 : distance * 1.5, 0],
+  );
+  const opacity = useTransform(scrollYProgress, [0.03, 0.17], [0.42, 1]);
+
+  return (
+    <motion.figure
+      className="group relative aspect-[4/5] w-[clamp(7.5rem,13vw,12.5rem)] shrink-0 overflow-hidden rounded-[1.55rem] border border-white/16 bg-black/10 shadow-[0_26px_70px_rgba(0,0,0,0.22)] will-change-transform sm:rounded-[1.9rem]"
+      style={{ x, y, scale, rotate, opacity, transformOrigin: "center" }}
+    >
+      <Image
+        fill
+        sizes="(min-width: 1539px) 200px, 13vw"
+        src={src}
+        alt={alt}
+        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+        draggable={false}
+      />
+
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/48 via-transparent to-transparent" />
+
+      {label ? (
+        <figcaption className="absolute inset-x-0 bottom-0 p-3 text-center text-[8px] font-semibold uppercase tracking-[0.14em] text-white/80 sm:p-4 sm:text-[9px]">
+          {label}
+        </figcaption>
+      ) : null}
+    </motion.figure>
+  );
+};
+
+const CharacterV3 = ({
+  char,
+  index,
+  centerIndex,
+  scrollYProgress,
+  className,
+}: CharacterProps) => {
+  const isSpace = char === " ";
+  const distance = index - centerIndex;
+
+  const x = useTransform(scrollYProgress, [0.06, 0.5], [distance * 58, 0]);
+  const y = useTransform(
+    scrollYProgress,
+    [0.06, 0.5],
+    [-Math.abs(distance) * 14, 0],
+  );
+  const rotate = useTransform(
+    scrollYProgress,
+    [0.06, 0.5],
+    [distance * 2.4, 0],
+  );
+  const opacity = useTransform(scrollYProgress, [0.03, 0.18], [0.28, 1]);
+
+  return (
+    <motion.span
+      className={cn(
+        "inline-block will-change-transform",
+        isSpace && "w-[0.28em]",
+        className,
+      )}
+      style={{ x, y, rotate, opacity, transformOrigin: "center" }}
+    >
+      {isSpace ? "\u00A0" : char}
+    </motion.span>
+  );
+};
+
+function Bracket({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 27 78"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        fill="currentColor"
+        d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"
+      />
+    </svg>
+  );
+}
+
+
+export function MieTextScrollAnimation() {
+  const targetRef2 = useRef<HTMLDivElement | null>(null);
+  const targetRef3 = useRef<HTMLDivElement | null>(null);
+
+  const { scrollYProgress: scrollYProgress2 } = useScroll({
+    target: targetRef2,
+    offset: ["start start", "end end"],
+  });
+
+  const { scrollYProgress: scrollYProgress3 } = useScroll({
+    target: targetRef3,
+    offset: ["start start", "end end"],
+  });
+
+  const closingText = "warm toasted quiet";
+  const closingCharacters = closingText.split("");
+  const closingCenter = Math.floor(closingCharacters.length / 2);
+  const teaCenter = Math.floor(teaHouseImages.length / 2);
+  const ritualCenter = Math.floor(ritualImages.length / 2);
+
+  const teaTitleOpacity = useTransform(
+    scrollYProgress2,
+    [0.02, 0.14],
+    [0.55, 1],
+  );
+  const teaTitleY = useTransform(scrollYProgress2, [0.02, 0.16], [16, 0]);
+  const teaCopyOpacity = useTransform(
+    scrollYProgress2,
+    [0.32, 0.52],
+    [0.45, 1],
+  );
+  const teaCopyY = useTransform(scrollYProgress2, [0.32, 0.52], [12, 0]);
+  const closingCopyOpacity = useTransform(
+    scrollYProgress3,
+    [0.34, 0.55],
+    [0.45, 1],
+  );
+  const closingCopyY = useTransform(scrollYProgress3, [0.34, 0.55], [14, 0]);
+
+  return (
+    <div className={styles.desktopScenes}>
+
+      <section
+        ref={targetRef2}
+        className="relative hidden h-[185vh] bg-[#10200f] lg:block"
+      >
+        <div className="sticky top-0 flex h-[100svh] flex-col items-center justify-center gap-8 overflow-hidden px-10 text-[#f7f2e8]">
+          <motion.div
+            className="flex max-w-4xl items-center justify-center gap-3 text-center"
+            style={{ opacity: teaTitleOpacity, y: teaTitleY }}
+          >
+            <Bracket className="h-12 shrink-0 text-[#c8da88]" />
+            <div>
+              <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#b8ca79]">
+                Tea house selection
+              </p>
+              <h2 className="mt-2 font-serif text-[clamp(2.8rem,5vw,5.3rem)] leading-[0.92] tracking-[-0.045em] text-[#fffaf0]">
+                Selected from Japan
+              </h2>
+            </div>
+            <Bracket className="h-12 shrink-0 scale-x-[-1] text-[#c8da88]" />
+          </motion.div>
+
+          <div
+            className="flex w-full max-w-[1450px] items-center justify-center gap-5"
+            style={{ perspective: "800px" }}
+          >
+            {teaHouseImages.map((image, index) => (
+              <CharacterV2
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                label={image.label}
+                index={index}
+                centerIndex={teaCenter}
+                scrollYProgress={scrollYProgress2}
+              />
+            ))}
+          </div>
+
+          <motion.div
+            className="text-center"
+            style={{ opacity: teaCopyOpacity, y: teaCopyY }}
+          >
+            <p className="mx-auto max-w-2xl text-sm leading-7 text-[#e1e7da]/78">
+              Marukyu Koyamaen, Ishimoto, Shogyokuen, Atami và Waba — mỗi nhà
+              trà mang một profile riêng để bạn khám phá.
+            </p>
+
+            <Link
+              href="/tea-houses"
+              className="mt-5 inline-flex min-h-12 items-center justify-center rounded-full border border-[#c8da88]/36 bg-[#c8da88]/10 px-6 text-[9px] font-bold uppercase tracking-[0.2em] text-[#e7f0bd] transition hover:bg-[#c8da88] hover:text-[#172314]"
+            >
+              Explore Tea Houses ↗
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+
+      <section
+        ref={targetRef3}
+        className="relative hidden h-[185vh] bg-[#6f4827] lg:block"
+      >
+        <div className="sticky top-0 flex h-[100svh] flex-col items-center justify-center gap-7 overflow-hidden px-10 text-[#fff7ed]">
+          <div
+            className="max-w-[1500px] text-center font-serif text-[clamp(3.3rem,8.2vw,7.8rem)] leading-[0.9] tracking-[-0.052em] text-[#fff7ed]"
+            style={{ perspective: "700px" }}
+          >
+            {closingCharacters.map((char, index) => (
+              <CharacterV3
+                key={`${char}-${index}`}
+                char={char}
+                index={index}
+                centerIndex={closingCenter}
+                scrollYProgress={scrollYProgress3}
+                className={
+                  index >= closingText.indexOf("toasted") &&
+                  index < closingText.indexOf("quiet")
+                    ? "italic text-[#f1d2aa]"
+                    : undefined
+                }
+              />
+            ))}
+          </div>
+
+          <div
+            className="flex w-full max-w-[1400px] items-center justify-center gap-5"
+            style={{ perspective: "800px" }}
+          >
+            {ritualImages.map((image, index) => (
+              <CharacterV2
+                key={`${image.src}-${index}`}
+                src={image.src}
+                alt={image.alt}
+                label={image.label}
+                index={index}
+                centerIndex={ritualCenter}
+                scrollYProgress={scrollYProgress3}
+                variant="rotate"
+              />
+            ))}
+          </div>
+
+          <motion.div
+            className="max-w-2xl text-center"
+            style={{ opacity: closingCopyOpacity, y: closingCopyY }}
+          >
+            <p className="text-sm leading-7 text-[#f8e8d8]/90">
+              Hojicha mang đến một nhịp thưởng trà êm hơn — ấm, rang nhẹ,
+              thoảng hương gỗ và caramel. Vị trà tròn, dịu và ít đắng, phù hợp
+              cho những khoảng nghỉ mềm hơn trong ngày.
+            </p>
+
+            <div className="mt-5 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/tea-houses#hojicha"
+                className="group inline-flex min-h-12 items-center justify-center rounded-full border border-[#fff4e2] bg-[#fff4e2] px-6 text-center text-[10px] font-extrabold uppercase tracking-[0.17em] !text-[#5b371a] shadow-[0_12px_30px_rgba(42,22,10,0.14)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#fff8ef] hover:shadow-[0_16px_36px_rgba(42,22,10,0.19)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fff7ed]"
+              >
+                <span className="!text-[#5b371a]">Discover Hojicha ↗</span>
+              </Link>
+
+              <Link
+                href="/visit"
+                className="group inline-flex min-h-12 items-center justify-center rounded-full border border-[#fff4e2]/45 bg-[#4f301b]/38 px-6 text-center text-[10px] font-extrabold uppercase tracking-[0.17em] !text-[#fff7ed] backdrop-blur-sm transition-[transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-[#fff7ed]/68 hover:bg-[#4f301b]/58 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fff7ed]"
+              >
+                <span className="!text-[#fff7ed]">Visit MIE ↗</span>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+const Skiper31 = MieTextScrollAnimation;
+
+export {
+  CharacterV1,
+  CharacterV2,
+  CharacterV3,
+  Skiper31,
+};
