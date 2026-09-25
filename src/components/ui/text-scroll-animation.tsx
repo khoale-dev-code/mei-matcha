@@ -311,14 +311,29 @@ export function MieTextScrollAnimation() {
     offset: ["start start", "end end"],
   });
 
-  const closingText =
-    "warm toasted quiet";
+  const closingWords = [
+    {
+      text: "warm",
+      className: "text-[#fff7ed]",
+    },
+    {
+      text: "toasted",
+      className: "italic text-[#f1d2aa]",
+    },
+    {
+      text: "quiet",
+      className: "text-[#fff7ed]",
+    },
+  ] as const;
 
-  const closingCharacters =
-    closingText.split("");
+  const closingCharacterCount =
+    closingWords.reduce(
+      (count, word) => count + word.text.length,
+      0,
+    );
 
   const closingCenter = Math.floor(
-    closingCharacters.length / 2,
+    closingCharacterCount / 2,
   );
 
   const teaCenter = Math.floor(
@@ -440,7 +455,7 @@ export function MieTextScrollAnimation() {
               href="/tea-houses"
               className="mt-5 inline-flex min-h-12 items-center justify-center rounded-full border border-[#c8da88]/36 bg-[#c8da88]/10 px-6 text-[9px] font-bold uppercase tracking-[0.2em] !text-[#e7f0bd] transition hover:bg-[#c8da88] hover:!text-[#172314]"
             >
-              Explore Tea Houses ↗
+              Explore Tea Houses
             </Link>
           </motion.div>
         </div>
@@ -452,30 +467,55 @@ export function MieTextScrollAnimation() {
       >
         <div className="sticky top-0 flex h-[100svh] flex-col items-center justify-center gap-7 overflow-hidden px-4 text-[#fff7ed] sm:px-7 lg:px-10">
           <div
-            className="max-w-[1500px] text-center font-serif text-[clamp(3.3rem,8.2vw,7.8rem)] leading-[0.9] tracking-[-0.052em] text-[#fff7ed]"
+            className="mx-auto flex max-w-[1500px] flex-wrap items-center justify-center gap-x-[0.18em] gap-y-[0.04em] px-2 text-center font-serif text-[clamp(2.8rem,8.8vw,7.8rem)] leading-[0.92] tracking-[-0.052em] text-[#fff7ed] [text-wrap:balance]"
             style={{
               perspective: "700px",
             }}
+            aria-label="warm toasted quiet"
           >
-            {closingCharacters.map(
-              (char, index) => (
-                <CharacterV3
-                  key={`${char}-${index}`}
-                  char={char}
-                  index={index}
-                  centerIndex={closingCenter}
-                  scrollYProgress={scrollYProgress3}
-                  className={
-                    index >=
-                    closingText.indexOf("toasted") &&
-                    index <
-                      closingText.indexOf("quiet")
-                      ? "italic text-[#f1d2aa]"
-                      : undefined
-                  }
-                />
-              ),
-            )}
+            {(() => {
+              let runningIndex = 0;
+
+              return closingWords.map(
+                (word, wordIndex) => {
+                  const wordStart =
+                    runningIndex;
+
+                  runningIndex +=
+                    word.text.length;
+
+                  return (
+                    <span
+                      key={word.text}
+                      className="inline-flex whitespace-nowrap"
+                    >
+                      {word.text
+                        .split("")
+                        .map(
+                          (
+                            char,
+                            charIndex,
+                          ) => (
+                            <CharacterV3
+                              key={`${word.text}-${char}-${charIndex}`}
+                              char={char}
+                              index={wordStart + charIndex}
+                              centerIndex={closingCenter}
+                              scrollYProgress={scrollYProgress3}
+                              className={word.className}
+                            />
+                          ),
+                        )}
+
+                      {wordIndex <
+                      closingWords.length - 1 ? (
+                        <span className="w-[0.18em]" />
+                      ) : null}
+                    </span>
+                  );
+                },
+              );
+            })()}
           </div>
 
           <div
@@ -519,14 +559,14 @@ export function MieTextScrollAnimation() {
                 href="/tea-houses#hojicha"
                 className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#f1d2aa]/45 bg-[#fff7ed]/8 px-6 text-[9px] font-bold uppercase tracking-[0.18em] !text-[#fff7ed] transition hover:bg-[#fff7ed] hover:!text-[#6f4827]"
               >
-                Discover Hojicha ↗
+                Discover Hojicha
               </Link>
 
               <Link
                 href="/visit"
                 className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#fff7ed] bg-[#fff7ed] px-6 text-[9px] font-bold uppercase tracking-[0.18em] !text-[#6f4827] shadow-[0_10px_30px_rgba(42,22,10,0.14)] transition hover:-translate-y-0.5 hover:bg-[#f1d2aa] hover:!text-[#4d301b]"
               >
-                Visit MIE ↗
+                Visit MIE
               </Link>
             </div>
           </motion.div>

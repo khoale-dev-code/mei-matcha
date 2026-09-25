@@ -56,24 +56,6 @@ function getStepIndex(progress: number) {
   return 2;
 }
 
-function VisitIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="size-4"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M7 17 17 7" />
-      <path d="M9 7h8v8" />
-    </svg>
-  );
-}
-
 function StoryIcon() {
   return (
     <svg
@@ -113,6 +95,115 @@ function ScrollIcon() {
   );
 }
 
+
+function MobileSlowDownScene() {
+  return (
+    <section
+      className="relative bg-[var(--mie-washi)] px-5 pb-24 pt-20 text-[var(--mie-ink)] sm:px-8 lg:hidden"
+      aria-labelledby="slow-down-mobile-heading"
+    >
+      <div className="mx-auto max-w-3xl">
+        <div className="border-b border-[var(--mie-ink)]/10 pb-6">
+          <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[var(--mie-moss)]/70">
+            Japanese tea · Tây Ninh
+          </p>
+
+          <h2
+            id="slow-down-mobile-heading"
+            className="mt-5 max-w-[7.2ch] font-serif text-[clamp(4rem,17vw,6.7rem)] leading-[0.84] tracking-[-0.06em]"
+          >
+            Slow down.
+            <span className="mt-2 block">
+              with{" "}
+              <em className="italic text-[var(--mie-matcha-deep)]">MIE.</em>
+            </span>
+          </h2>
+
+          <p className="mt-8 max-w-[34rem] text-base leading-8 text-[var(--mie-ink)]/70 sm:text-lg">
+            Một phần matcha ngon không chỉ nằm ở chất lượng trà, mà còn ở cách
+            bạn bước chậm lại — chọn vị, nhìn màu xanh mở ra và ở cùng chiếc
+            cốc thêm một nhịp.
+          </p>
+
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            <Link
+              href="/visit"
+              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-[#17351b] px-5 text-[10px] font-extrabold uppercase tracking-[0.18em] !text-[#fffaf0]"
+            >
+              Visit MIE
+            </Link>
+
+            <Link
+              href="/about"
+              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-[#172314]/12 bg-[#fffaf0] px-5 text-[10px] font-extrabold uppercase tracking-[0.18em] !text-[#172314]"
+            >
+              <StoryIcon />
+              Our story
+            </Link>
+          </div>
+        </div>
+
+        <div className="pt-12">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.26em] text-[var(--mie-moss)]/58">
+                The MIE ritual
+              </p>
+              <h3 className="mt-2 max-w-[13ch] font-serif text-[clamp(2.3rem,10vw,3.8rem)] leading-[0.95] tracking-[-0.045em]">
+                Three steps.
+                <span className="block italic text-[var(--mie-matcha-deep)]">
+                  One quiet cup.
+                </span>
+              </h3>
+            </div>
+
+            <span className="shrink-0 rounded-full border border-[var(--mie-matcha-deep)]/18 bg-[var(--mie-matcha)]/14 px-3 py-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--mie-matcha-deep)]">
+              03 steps
+            </span>
+          </div>
+
+          <div className="mt-7 grid gap-4">
+            {RITUAL_SLIDES.map((slide) => (
+              <article
+                key={slide.id}
+                className="overflow-hidden rounded-[1.6rem] border border-[var(--mie-ink)]/10 bg-[var(--mie-ivory)]/78 p-5 shadow-[0_18px_48px_rgba(32,43,28,0.07)]"
+              >
+                <div className="flex items-start justify-between gap-5">
+                  <div>
+                    <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[var(--mie-matcha-deep)]">
+                      {slide.id} · {slide.eyebrow}
+                    </p>
+                    <h4 className="mt-3 font-serif text-[2.45rem] leading-none tracking-[-0.045em]">
+                      {slide.title}
+                    </h4>
+                  </div>
+
+                  <p className="max-w-[11rem] text-right text-[9px] font-bold uppercase leading-5 tracking-[0.15em] text-[var(--mie-ink)]/44">
+                    {slide.accent}
+                  </p>
+                </div>
+
+                <p className="mt-5 text-[15px] leading-7 text-[var(--mie-ink)]/70">
+                  {slide.copy}
+                </p>
+
+                <div className="mt-5 rounded-[1.15rem] border border-[var(--mie-ink)]/8 bg-[var(--mie-washi)]/80 px-4 py-3.5">
+                  <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-[var(--mie-moss)]/45">
+                    Why this matters
+                  </p>
+                  <p className="mt-1.5 font-serif text-lg italic leading-6 text-[var(--mie-matcha-deep)]">
+                    {slide.note}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function SlowDownScene() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeStep, setActiveStep] = useState(0);
@@ -144,11 +235,14 @@ export function SlowDownScene() {
   const activeSlide = RITUAL_SLIDES[activeStep];
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-[260vh] bg-[var(--mie-washi)] text-[var(--mie-ink)]"
-      aria-labelledby="slow-down-heading"
-    >
+    <>
+      <MobileSlowDownScene />
+
+      <section
+        ref={sectionRef}
+        className="relative hidden h-[260vh] bg-[var(--mie-washi)] text-[var(--mie-ink)] lg:block"
+        aria-labelledby="slow-down-heading"
+      >
       <div className={`sticky top-0 h-[100svh] overflow-hidden ${styles.stage}`}>
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-x-0 top-0 h-px bg-[var(--mie-ink)]/8" />
@@ -236,9 +330,6 @@ export function SlowDownScene() {
                   className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-[#29452c] bg-[#17351b] px-6 py-3 !text-[#fffaf0] shadow-[0_14px_34px_rgba(20,34,18,0.22)] transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#214a25] hover:shadow-[0_18px_42px_rgba(20,34,18,0.28)] active:translate-y-px active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7d914e] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--mie-washi)] motion-reduce:transform-none motion-reduce:transition-none"
                   style={{ color: "#fffaf0" }}
                 >
-                  <span className="grid size-7 place-items-center rounded-full border border-white/15 bg-white/10 text-[#fffaf0] transition-transform duration-200 group-hover:rotate-6 motion-reduce:transform-none">
-                    <VisitIcon />
-                  </span>
 
                   <span className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#fffaf0]">
                     Visit MIE
@@ -436,6 +527,7 @@ export function SlowDownScene() {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }

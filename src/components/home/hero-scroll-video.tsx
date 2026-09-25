@@ -9,6 +9,7 @@ import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 const FRAME_COUNT = 192;
 const CACHE_LIMIT = 24;
 const PRELOAD_RADIUS = 10;
+const MOBILE_QUERY = "(max-width: 1023px)";
 
 function getFrameUrl(index: number) {
   const safeIndex = Math.min(Math.max(index + 1, 1), FRAME_COUNT);
@@ -38,6 +39,11 @@ export function HeroScrollVideo() {
       if (!context) {
         return;
       }
+
+      const isMobileViewport = window.matchMedia(MOBILE_QUERY).matches;
+      const initialViewportHeight =
+        window.visualViewport?.height ?? window.innerHeight;
+      let lastViewportWidth = window.innerWidth;
 
       const frameCache = new Map<number, HTMLImageElement>();
       const loadingFrames = new Set<number>();
@@ -266,8 +272,17 @@ export function HeroScrollVideo() {
         loadFrame(index);
       }
 
-      const scrollDistance = () =>
-        Math.round(Math.min(3900, Math.max(2900, window.innerHeight * 3.5)));
+      const scrollDistance = () => {
+        if (isMobileViewport) {
+          return Math.round(
+            Math.min(3400, Math.max(2500, initialViewportHeight * 3.15)),
+          );
+        }
+
+        return Math.round(
+          Math.min(3900, Math.max(2900, window.innerHeight * 3.5)),
+        );
+      };
 
       const trigger = ScrollTrigger.create({
         id: "mie-hero-sequence",
@@ -288,11 +303,19 @@ export function HeroScrollVideo() {
             transformOrigin: "left center",
           });
 
-          const fade = gsap.utils.clamp(0, 1, (self.progress - 0.14) / 0.48);
+          const fadeStart = isMobileViewport ? 0.58 : 0.14;
+          const fadeDuration = isMobileViewport ? 0.3 : 0.48;
+          const maxFade = isMobileViewport ? 0.56 : 0.76;
+          const translateY = isMobileViewport ? -2 : -5;
+          const fade = gsap.utils.clamp(
+            0,
+            1,
+            (self.progress - fadeStart) / fadeDuration,
+          );
 
           gsap.set(content, {
-            opacity: 1 - fade * 0.76,
-            yPercent: -5 * fade,
+            opacity: 1 - fade * maxFade,
+            yPercent: translateY * fade,
           });
         },
         onLeave: () => {
@@ -335,7 +358,15 @@ export function HeroScrollVideo() {
           drawImage(image);
         }
 
-        ScrollTrigger.refresh();
+        const nextWidth = window.innerWidth;
+        const widthChanged = Math.abs(nextWidth - lastViewportWidth) > 8;
+
+        // iOS Safari fires resize while its browser chrome expands/collapses.
+        // Avoid refreshing the pinned sequence for height-only viewport changes.
+        if (!isMobileViewport || widthChanged) {
+          lastViewportWidth = nextWidth;
+          ScrollTrigger.refresh();
+        }
       };
 
       window.addEventListener("resize", handleResize, {
@@ -369,7 +400,7 @@ export function HeroScrollVideo() {
     <section
       id="top"
       ref={sectionRef}
-      className="relative isolate h-[100svh] overflow-hidden bg-[#0c130b] text-[#f7f2e7]"
+      className="relative isolate h-[100dvh] min-h-[100svh] overflow-hidden bg-[#0c130b] text-[#f7f2e7]"
     >
       <canvas
         ref={canvasRef}
@@ -383,7 +414,7 @@ export function HeroScrollVideo() {
 
       <div
         ref={contentRef}
-        className="relative z-10 mx-auto flex h-full max-w-[1500px] flex-col justify-end px-5 pb-10 pt-28 sm:px-8 sm:pb-14 lg:px-12 lg:pb-16"
+        className="relative z-10 mx-auto flex h-full max-w-[1500px] flex-col justify-end px-5 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-28 sm:px-8 sm:pb-14 lg:px-12 lg:pb-16"
       >
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.55fr] lg:items-end lg:gap-16">
           <div>
