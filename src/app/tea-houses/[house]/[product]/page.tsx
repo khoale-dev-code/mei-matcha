@@ -180,7 +180,7 @@ export default async function ProductDetailPage({
                     className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full !bg-[#17351b] px-6 text-[11px] font-extrabold uppercase tracking-[0.16em] !text-[#fffaf0] shadow-[0_10px_24px_rgba(23,53,27,0.15)] transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:!bg-[#214a25] hover:shadow-[0_14px_30px_rgba(23,53,27,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#71854b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6f1e6]"
                   >
                     <span className="!text-[#fffaf0]">Read profile</span>
-                    <span aria-hidden="true" className="!text-[#d3f08b]">↓</span>
+                    
                   </a>
 
                   <Link
@@ -192,7 +192,7 @@ export default async function ProductDetailPage({
                     className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#17351b]/14 !bg-[#fffaf0] px-6 text-[11px] font-extrabold uppercase tracking-[0.16em] !text-[#17351b] transition-[transform,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-[#71854b]/40 hover:!bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#71854b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6f1e6]"
                   >
                     <span className="!text-[#17351b]">Try at MIE</span>
-                    <span aria-hidden="true" className="!text-[#71854b]">↗</span>
+                    
                   </Link>
                 </div>
               </div>
@@ -215,18 +215,22 @@ export default async function ProductDetailPage({
                     Taste journey
                   </p>
 
-                  <h2 className={`${styles.displayVi} mt-5 max-w-[10ch] text-[clamp(3.4rem,5.8vw,5.9rem)] leading-[0.94] text-[#fffaf0]`}>
-                    Một chén,
-                    <em className="mt-1 block font-normal italic text-[#d3f08b]">
-                      ba khoảnh khắc.
-                    </em>
+                                    <h2
+                    lang="vi"
+                    className="mt-5 font-sans text-[clamp(2.9rem,12vw,6.2rem)] font-extrabold leading-[0.9] tracking-[-0.055em] text-[#fffaf0]"
+                  >
+                    <span className="block whitespace-nowrap">Chọn trà từ</span>
+                    <span className="block whitespace-nowrap">vị bạn thích.</span>
                   </h2>
                 </div>
 
-                <p className="max-w-2xl text-[1rem] leading-8 text-white/72 lg:justify-self-end">
-                  Đừng cố tìm tất cả tasting notes cùng lúc. Hãy đọc chén trà theo
-                  trình tự: cảm giác mở đầu, lớp vị ở giữa và điều còn lại sau khi
-                  nuốt.
+                                <p
+                  lang="vi"
+                  className="max-w-2xl text-[1rem] leading-8 text-[#fffaf0]/72 lg:justify-self-end"
+                >
+                  Bạn không cần nhớ hết tasting notes. Hãy bắt đầu từ cảm giác
+                  mình thích — nhẹ, đậm, floral hay creamy — rồi để từng lớp vị
+                  dẫn bạn đến chén trà hợp gu hơn.
                 </p>
               </div>
 
@@ -282,11 +286,12 @@ export default async function ProductDetailPage({
                     Tasting profile
                   </p>
 
-                  <h2 className={`${styles.displayVi} mt-4 max-w-[9ch] text-[clamp(3.2rem,5vw,5.2rem)] leading-[0.94]`}>
-                    Hiểu vị bằng
-                    <em className="block font-normal italic text-[#71854b]">
-                      năm trục.
-                    </em>
+                                    <h2
+                    lang="vi"
+                    className="mt-4 font-sans text-[clamp(2.85rem,10.8vw,5.7rem)] font-extrabold leading-[0.9] tracking-[-0.05em] text-[#17351b]"
+                  >
+                    <span className="block">Hiểu gu qua</span>
+                    <span className="block">năm trục.</span>
                   </h2>
 
                   <p className="mt-6 max-w-xl text-base leading-8 text-[#17351b]/68">
@@ -337,9 +342,11 @@ export default async function ProductDetailPage({
 
                 <a
                   href={`/tea-houses#${house.slug}`}
-                  className="mt-7 inline-flex min-h-11 cursor-pointer items-center rounded-full border border-[#17351b]/14 px-5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#17351b] transition-colors duration-200 hover:bg-[#17351b] hover:text-[#fffaf0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#71854b]"
+                  className="mt-7 inline-flex min-h-11 cursor-pointer items-center rounded-full border border-[#17351b]/14 px-5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#17351b] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#71854b] group hover:!bg-[#17351b] focus-visible:!bg-[#17351b] active:!bg-[#17351b]"
                 >
-                  Explore this tea house →
+                  <span className="text-[#17351b] transition-colors duration-200 group-hover:!text-[#fffaf0] group-focus-visible:!text-[#fffaf0] group-active:!text-[#fffaf0]">
+                    Explore this tea house
+                  </span>
                 </a>
               </div>
 
@@ -372,18 +379,20 @@ export default async function ProductDetailPage({
                     Compare profiles
                   </p>
 
-                  <h2 className={`${styles.displayVi} mt-4 max-w-[10ch] text-[clamp(3.2rem,5vw,5.2rem)] leading-[0.94] text-[#fffaf0]`}>
-                    Cùng nhà trà,
-                    <em className="block font-normal italic text-[#d3f08b]">
-                      khác tính cách.
-                    </em>
+                                    <h2
+                    lang="vi"
+                    className="mt-4 font-sans text-[clamp(2.9rem,10.8vw,5.8rem)] font-extrabold leading-[0.9] tracking-[-0.05em] text-[#fffaf0]"
+                  >
+                    <span className="block">Cùng nhà trà.</span>
+                    <span className="block">Khác gu vị.</span>
                   </h2>
                 </div>
 
                 <div className="max-w-xl lg:justify-self-end">
-                  <p className="text-base leading-8 text-white/72">
-                    So sánh từng trục thay vì nhìn những chấm nhỏ. Mỗi ô hiển thị
-                    cả mức 1–5 và thanh tín hiệu để bạn đọc nhanh hơn khi cuộn tới đây.
+                  <p className="max-w-[36rem] text-[0.98rem] leading-8 text-white/72">
+                    Đặt các profile cạnh nhau theo cùng năm trục vị để thấy rõ
+                    dòng nào nhẹ, dày, floral hay creamy — không cần đọc quá nhiều
+                    con số cùng lúc.
                   </p>
 
                   <div className="mt-5 flex items-center gap-3">
@@ -540,7 +549,7 @@ export default async function ProductDetailPage({
                     href="/tea-houses"
                     className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#17351b]/58 underline underline-offset-4"
                   >
-                    All matcha →
+                    All matcha
                   </Link>
                 </div>
 
@@ -588,21 +597,34 @@ export default async function ProductDetailPage({
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#71854b]">
                   Questions
                 </p>
-                <h2 className={`${styles.displayVi} mt-3 text-[clamp(2.6rem,4vw,4rem)] leading-[0.98]`}>
-                  Hiểu matcha dễ hơn một chút.
+                                <h2
+                  lang="vi"
+                  className="mt-3 font-sans text-[clamp(2.7rem,10.5vw,5.5rem)] font-extrabold leading-[0.9] tracking-[-0.05em] text-[#17351b]"
+                >
+                  <span className="block">Hiểu matcha.</span>
+                  <span className="block">Chọn đúng gu.</span>
                 </h2>
               </div>
 
-              <div className="mt-8 divide-y divide-[#17351b]/10 border-y border-[#17351b]/10">
+              <div className="mt-8 grid gap-3">
                 {FAQ.map((item) => (
-                  <details key={item.question} className="group py-5">
-                    <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-6 font-serif text-xl">
-                      {item.question}
-                      <span className="grid size-9 shrink-0 place-items-center rounded-full border border-[#17351b]/10 text-[#71854b] transition-transform duration-200 group-open:rotate-45">
+                  <details
+                    key={item.question}
+                    className="group rounded-[1.2rem] border border-[#17351b]/10 bg-[#f6f1e6]/58 px-5 shadow-[0_8px_24px_rgba(23,53,27,0.035)] transition-[background-color,border-color] duration-200 open:border-[#71854b]/24 open:bg-[#f6f1e6] sm:px-6"
+                  >
+                    <summary
+                      lang="vi"
+                      className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-5 py-4 text-left font-sans text-[1.04rem] font-semibold leading-7 tracking-[-0.012em] text-[#17351b] sm:text-[1.1rem]"
+                    >
+                      <span className="min-w-0">{item.question}</span>
+                      <span className="grid size-9 shrink-0 place-items-center rounded-full border border-[#17351b]/10 bg-[#fffaf0] text-[#71854b] transition-transform duration-200 group-open:rotate-45">
                         +
                       </span>
                     </summary>
-                    <p className="mt-4 max-w-3xl text-base leading-8 text-[#17351b]/66">
+                    <p
+                      lang="vi"
+                      className="max-w-3xl pb-5 pr-10 text-[0.96rem] leading-7 text-[#17351b]/68 sm:text-base sm:leading-8"
+                    >
                       {item.answer}
                     </p>
                   </details>

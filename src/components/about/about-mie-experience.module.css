@@ -81,7 +81,7 @@
 .invitationTop { display: flex; align-items: center; justify-content: space-between; gap: 15px; color: #dce6c5; }
 .invitationBrand { font-size: 0.8125rem; font-weight: 650; letter-spacing: 0.17em; line-height: 1.5; }
 .invitationTitle { margin: 0; padding: 10px 0 22px; border-bottom: 1px solid rgb(229 236 216 / 20%); font-family: "Times New Roman", Georgia, serif; font-size: clamp(2rem, 3.3vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.12; }
-.invitationTitle em { color: #d5e1b7; }
+.invitationTitle span:last-of-type { color: #d5e1b7; font-style: normal; }
 .contactRow { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; color: #f6f3e7; text-decoration: none; }
 .contactRow > svg { flex-shrink: 0; margin-top: 2px; color: #d5e1b7; }
 .contactRow > div { display: grid; gap: 6px; }
@@ -329,3 +329,81 @@
   }
 }
 
+
+
+/* === MIE ABOUT INVITATION TITLE UPRIGHT === */
+.invitationTitle span {
+  font-style: normal;
+}
+.invitationTitle span:last-of-type {
+  color: #d5e1b7;
+}
+
+
+/* === MIE ABOUT HEADING LINE BALANCE V3 === */
+.title {
+  text-wrap: balance;
+}
+
+.titleLine {
+  display: block;
+}
+
+.keepLine {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+#mie-story-title,
+#mie-ritual-title,
+#mie-visit-title {
+  letter-spacing: -0.035em;
+}
+
+@media (max-width: 767px) {
+  #mie-story-title,
+  #mie-ritual-title,
+  #mie-visit-title {
+    font-size: clamp(3rem, 11.2vw, 4.45rem);
+    line-height: 0.94;
+    max-width: none;
+  }
+}
+
+
+/* === MIE ABOUT HEADING LINE BALANCE V4 === */
+.balancedTitle {
+  max-width: none;
+  text-wrap: balance;
+  letter-spacing: -0.028em;
+  line-height: 0.96;
+}
+
+.titleLine {
+  display: block;
+}
+
+.keepLine {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .balancedTitle {
+    font-size: clamp(2.75rem, 5.6vw, 4.25rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .balancedTitle {
+    font-size: clamp(2.65rem, 10.2vw, 3.7rem);
+    line-height: 0.98;
+    letter-spacing: -0.022em;
+  }
+}
+
+@media (max-width: 390px) {
+  .balancedTitle {
+    font-size: clamp(2.4rem, 9.7vw, 3.2rem);
+  }
+}

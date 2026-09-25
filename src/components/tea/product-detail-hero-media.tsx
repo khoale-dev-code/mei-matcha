@@ -101,12 +101,6 @@ export function ProductDetailHeroMedia({
           </p>
         </div>
 
-        <span
-          aria-hidden="true"
-          className="grid size-9 shrink-0 place-items-center rounded-full border border-white/14 text-sm text-white/80"
-        >
-          ↗
-        </span>
       </div>
     </div>
   );

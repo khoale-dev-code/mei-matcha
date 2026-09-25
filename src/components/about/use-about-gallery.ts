@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
-const INTERVAL_MS = 4200;
+const INTERVAL_MS = 1000;
 
 function subscribeMotion(callback: () => void) {
   const media = window.matchMedia(REDUCED_MOTION);
@@ -23,58 +23,17 @@ function serverMotionSnapshot() {
 export function useAboutGallery(count: number) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
-  const [visible, setVisible] = useState(false);
+  const [rotationChoice, setRotationChoice] = useState<boolean | null>(null);
+  const [hovered, setHovered] = useState(false);
+
   const reducedMotion = useSyncExternalStore(
     subscribeMotion,
     motionSnapshot,
     serverMotionSnapshot,
   );
 
-  const playing = count > 1 && visible && !reducedMotion;
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-
-    const panel = root.closest<HTMLElement>("[data-story-panel]");
-    let intersecting = false;
-
-    const updateVisibility = () => {
-      setVisible(
-        intersecting &&
-          !document.hidden &&
-          !panel?.inert &&
-          panel?.getAttribute("aria-hidden") !== "true",
-      );
-    };
-
-    const intersection = new IntersectionObserver(
-      ([entry]) => {
-        intersecting = entry.isIntersecting && entry.intersectionRatio >= 0.25;
-        updateVisibility();
-      },
-      { threshold: [0, 0.25] },
-    );
-
-    intersection.observe(root);
-
-    const mutation = new MutationObserver(updateVisibility);
-
-    if (panel) {
-      mutation.observe(panel, {
-        attributes: true,
-        attributeFilter: ["inert", "aria-hidden"],
-      });
-    }
-
-    document.addEventListener("visibilitychange", updateVisibility);
-
-    return () => {
-      intersection.disconnect();
-      mutation.disconnect();
-      document.removeEventListener("visibilitychange", updateVisibility);
-    };
-  }, []);
+  const rotationRequested = rotationChoice ?? !reducedMotion;
+  const playing = count > 1 && rotationRequested && !hovered;
 
   useEffect(() => {
     if (!playing || count < 2) return;
@@ -88,6 +47,7 @@ export function useAboutGallery(count: number) {
 
   function select(next: number) {
     if (count < 1) return;
+
     setIndex(((next % count) + count) % count);
   }
 
@@ -95,6 +55,9 @@ export function useAboutGallery(count: number) {
     rootRef,
     index,
     playing,
+    rotationRequested,
+    setRotationChoice,
+    setHovered,
     select,
   };
 }

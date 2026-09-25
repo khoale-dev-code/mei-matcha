@@ -40,7 +40,7 @@ export const aboutMieContent: AboutMieContent = {
     "MIE MATCHA là một trong những tiệm chuyên về matcha đầu tiên tại Tây Ninh, bắt đầu từ một tình yêu rất đơn giản: thích matcha, thích những buổi ngồi chậm lại một chút và thích chia sẻ những điều mình yêu với mọi người.",
     "Ở MIE, bạn sẽ tìm thấy những dòng matcha chính gốc từ các nhà trà lớn của Nhật Bản như Marukyu Koyamaen, Shogyokuen và nhiều dòng trà khác được chúng mình chọn lựa kỹ càng.",
     "Mỗi phần matcha đều được đánh thủ công bằng chasen, để bột trà được hòa tan thật mịn và giữ lại trọn vẹn màu xanh, hương thơm cùng vị umami đặc trưng của matcha.",
-    "Từ những chén matcha nguyên bản đến những món matcha được biến tấu theo cách riêng của MIE MATCHA, chúng mình luôn cố gắng giữ lại tinh thần của trà Nhật, đồng thời tạo nên một trải nghiệm đủ dễ uống, dễ gần và phù hợp với nhịp sống hiện đại."
+    "Từ những ly matcha nguyên bản đến những món matcha được biến tấu theo cách riêng của MIE MATCHA, chúng mình luôn cố gắng giữ lại tinh thần của trà Nhật, đồng thời tạo nên một trải nghiệm đủ dễ uống, dễ gần và phù hợp với nhịp sống hiện đại."
   ],
   tags: ["Uji selected", "Hand whisked", "Modern ritual", "Slow experience"],
   principles: [
@@ -49,7 +49,7 @@ export const aboutMieContent: AboutMieContent = {
       kicker: "Tinh thần",
       title: "Chậm lại để cảm vị rõ hơn",
       description:
-        "Một chén matcha ở MIE không chỉ để uống. Đó là một khoảng nghỉ nhỏ, nơi bạn có thể chậm nhịp lại và chú ý hơn đến mùi hương, texture và hậu vị."
+        "Một ly matcha ở MIE không chỉ để uống. Đó là một khoảng nghỉ nhỏ, nơi bạn có thể chậm nhịp lại và chú ý hơn đến mùi hương, texture và hậu vị."
     },
     {
       id: "02",
@@ -63,7 +63,7 @@ export const aboutMieContent: AboutMieContent = {
       kicker: "Trải nghiệm",
       title: "Giữ tinh thần trà Nhật trong đời sống hiện đại",
       description:
-        "Từ chén matcha nguyên bản đến những món được biến tấu theo cách riêng của MIE, mọi thứ đều hướng đến sự mượt mà, tinh gọn và gần gũi với nhịp sống hôm nay."
+        "Từ ly matcha nguyên bản đến những món được biến tấu theo cách riêng của MIE, mọi thứ đều hướng đến sự mượt mà, tinh gọn và gần gũi với nhịp sống hôm nay."
     }
   ],
   details: [
@@ -77,7 +77,7 @@ export const aboutMieContent: AboutMieContent = {
       id: "B",
       title: "Whisked by hand",
       description:
-        "Mỗi chén được đánh bằng chasen để bột trà tan mịn, bề mặt mượt và giữ màu xanh sáng — một chi tiết nhỏ nhưng ảnh hưởng trực tiếp đến trải nghiệm."
+        "Mỗi ly được đánh bằng chasen để bột trà tan mịn, bề mặt mượt và giữ màu xanh sáng — một chi tiết nhỏ nhưng ảnh hưởng trực tiếp đến trải nghiệm."
     },
     {
       id: "C",

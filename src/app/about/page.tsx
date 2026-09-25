@@ -1,8 +1,8 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 
 import { AboutMieExperience } from "@/components/about/about-mie-experience";
-import { AboutFooter } from "@/components/about/about-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
 import { aboutMieContent } from "@/data/about-mie";
 import styles from "@/components/about/about-mie-experience.module.css";
 
@@ -20,7 +20,7 @@ export default function AboutPage() {
       <main id="about-main" className={styles.main}>
         <AboutMieExperience content={aboutMieContent} />
       </main>
-      <AboutFooter address={aboutMieContent.visit.address} phone={aboutMieContent.visit.phone} />
+      <SiteFooter />
     </>
   );
 }

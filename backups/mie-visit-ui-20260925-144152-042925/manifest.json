@@ -1,0 +1,21 @@
+﻿{
+    "ProjectRoot":  "D:\\freelancer\\mie-matcha",
+    "Files":  [
+                  {
+                      "Path":  "src/types/visit.ts",
+                      "Existed":  false
+                  },
+                  {
+                      "Path":  "src/data/visit-content.ts",
+                      "Existed":  false
+                  },
+                  {
+                      "Path":  "src/components/visit/visit-experience.tsx",
+                      "Existed":  true
+                  },
+                  {
+                      "Path":  "src/components/visit/visit-experience.module.css",
+                      "Existed":  true
+                  }
+              ]
+}

@@ -56,7 +56,7 @@ export function VisitExperience() {
           </p>
           <h1 id="visit-heading" className={styles.heroTitle}>
             <span className={styles.heroTitleMain}>Ghé MIE.</span>
-            <em className={styles.heroTitleAccent}>Chọn vị mình thích.</em>
+            <span className={styles.heroTitleAccent}>Chọn ly hợp gu.</span>
           </h1>
 
           <p className={styles.heroPrelude}>
@@ -64,8 +64,8 @@ export function VisitExperience() {
           </p>
 
           <p className={styles.heroLead}>
-            Bạn không cần thuộc tên nhà trà. Chỉ cần nói cảm giác bạn thích —
-            tụi mình sẽ cùng tìm một chén matcha dễ uống, vừa gu và đủ để nhớ.
+            Không cần thuộc tên nhà trà. Chỉ cần nói vị bạn thích — tụi mình
+            sẽ cùng bạn tìm một ly matcha dễ uống, hợp gu và dễ nhớ.
           </p>
 
           <div className={styles.heroActions}>
@@ -134,12 +134,11 @@ export function VisitExperience() {
         <div className={styles.sectionHeading}>
           <p className={styles.sectionKicker}>A SIMPLE WAY TO BEGIN</p>
           <h2 id="journey-heading">
-            Chọn trà không cần bắt đầu bằng
-            <em>tên nhà trà.</em>
+            <span>Chọn trà hợp gu.</span>
           </h2>
           <p>
-            Tụi mình bắt đầu từ cảm giác bạn muốn tìm, sau đó mới đi sâu vào
-            origin, nhà trà và tasting notes.
+            Không cần nhớ tên nhà trà ngay từ đầu. Cứ bắt đầu từ cảm giác bạn
+            muốn uống, rồi mình cùng đi tiếp đến profile, origin và tasting notes.
           </p>
         </div>
 
@@ -202,15 +201,15 @@ export function VisitExperience() {
 
             <h2 id="find-mie-heading" className={styles.visitIntroTitle}>
               <span>Ghé MIE.</span>
-              <em>Chọn chén theo cảm giác.</em>
+              <span className={styles.visitIntroAccent}>Chọn ly hợp gu.</span>
             </h2>
           </div>
 
           <div className={styles.visitIntroAside}>
             <p className={styles.visitLead}>
               Bạn không cần thuộc tên nhà trà hay biết hết tasting notes.
-              Chỉ cần nói gu vị bạn thích — floral, creamy, nutty hay umami —
-              tụi mình sẽ gợi ý một profile dễ cảm để bắt đầu.
+              Chỉ cần nói bạn thích floral, creamy, nutty hay umami — tụi mình
+              sẽ gợi ý một profile dễ uống, dễ cảm và hợp với bạn.
             </p>
 
             <div className={styles.visitIntroFacts} aria-label="Cách bắt đầu tại MIE">
@@ -324,13 +323,13 @@ export function VisitExperience() {
 
           <h2 className={styles.finalTitle}>
             <span>Bắt đầu từ</span>
-            <em>một vị bạn thích.</em>
+            <span className={styles.finalTitleAccent}>vị bạn thích.</span>
           </h2>
 
           <p className={styles.finalLead}>
             Không cần hiểu hết về matcha để chọn đúng ngay từ đầu.
-            Chỉ cần nói bạn thích floral, creamy, nutty hay umami —
-            MIE sẽ cùng bạn tìm một chén dễ cảm và vừa gu.
+            Chỉ cần nói bạn thích floral, creamy, nutty hay umami — MIE sẽ cùng
+            bạn tìm một ly dễ uống, hợp gu và đáng để nhớ.
           </p>
 
           <div className={styles.finalTasteTags} aria-label="Gợi ý nhóm hương vị">

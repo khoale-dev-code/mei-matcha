@@ -50,7 +50,7 @@ export const FLAVOR_LABELS: Array<{
   },
   {
     key: "bitterness",
-    label: "Đắng / chát",
+    label: "Bitter / Astringent",
     helper: "Mức độ sắc, khô hoặc đắng xuất hiện trong hậu vị.",
   },
   {

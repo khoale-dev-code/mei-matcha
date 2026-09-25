@@ -26,8 +26,11 @@ export function HojichaFeature() {
             <h2 id="hojicha-title" className="mt-5 font-serif text-[clamp(3.5rem,7vw,6.6rem)] leading-none tracking-[-0.04em] text-[#FFF7ED]">
               {hojicha.title}
             </h2>
-            <p className="mt-4 font-serif text-3xl italic leading-tight text-[#F1D2AA] sm:text-4xl">
-              Một hương rang ấm, một vị trà êm.
+                        <p
+              lang="vi"
+              className="mt-5 max-w-[18ch] font-sans text-[clamp(1.8rem,5.6vw,2.8rem)] font-bold leading-[1.04] tracking-[-0.03em] text-[#F1D2AA]"
+            >
+              Hương rang ấm. Vị trà êm.
             </p>
           </Reveal>
 
