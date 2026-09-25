@@ -288,9 +288,12 @@ export function HeroScrollVideo() {
         id: "mie-hero-sequence",
         trigger: section,
         start: "top top",
-        end: () => `+=${scrollDistance()}`,
-        pin: true,
-        pinSpacing: true,
+        end: () =>
+          isMobileViewport
+            ? "bottom bottom"
+            : `+=${scrollDistance()}`,
+        pin: !isMobileViewport,
+        pinSpacing: !isMobileViewport,
         scrub: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
@@ -400,8 +403,12 @@ export function HeroScrollVideo() {
     <section
       id="top"
       ref={sectionRef}
-      className="relative isolate h-[100dvh] min-h-[100svh] overflow-hidden bg-[#0c130b] text-[#f7f2e7]"
+      className="relative isolate h-[calc(100dvh+2800px)] bg-[#0c130b] text-[#f7f2e7] sm:h-[calc(100dvh+3000px)] lg:h-[100svh]"
     >
+      <div
+        data-hero-viewport
+        className="sticky top-0 h-[100dvh] min-h-[100svh] overflow-hidden bg-[#0c130b] lg:static lg:h-full"
+      >
       <canvas
         ref={canvasRef}
         className="absolute inset-0 h-full w-full"
@@ -472,6 +479,7 @@ export function HeroScrollVideo() {
           ref={progressRef}
           className="h-full w-full origin-left scale-x-0 bg-[#c7d87f]"
         />
+      </div>
       </div>
     </section>
   );
