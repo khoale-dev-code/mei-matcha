@@ -736,3 +736,13 @@
     transition: none;
   }
 }
+
+/* MIE UTF8 TOPPING FIX */
+.optionPreviewBlock li,
+.optionPreviewBlock li span,
+.optionPreviewBlock li strong {
+  font-family: "Segoe UI", Arial, sans-serif !important;
+  font-style: normal !important;
+  letter-spacing: 0 !important;
+}
+/* END MIE UTF8 TOPPING FIX */
